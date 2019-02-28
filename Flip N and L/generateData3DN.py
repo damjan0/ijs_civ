@@ -9,6 +9,7 @@ import time
 from IO import saveData
 from lifeDist import lifeDist, lifeDist2
 
+#Bokal update
 
 def getPoint(maxN=10):
     RStarSample = random.uniform(0 , 2)
@@ -17,28 +18,34 @@ def getPoint(maxN=10):
     fInteligence = random.uniform(-3 , 0)
     fCivilization = random.uniform(-2 , 0)
 
+    nStars = random.uniform(11, 11.60205999132)
+
     N = np.random.uniform(0 , maxN)
     #N= np.random.lognormal(0, maxN)
-
 
     fLife = lifeDist(mean=0, sigma=50)
     fLifeEks = float(mp.log(fLife, 10))
 
-    if (fLife==0):
-        return getPoint(maxN)
+    E3 = nStars + fPlanets + nEnvironment
+    E4 = E3 + fLife
+    E5 = E4 + fInteligence
     
     #resitev = RStarSample + fPlanets + nEnvironment + fLifeEks + fInteligence + fCivilization + L
     L = N - (RStarSample + fPlanets + nEnvironment + fLifeEks + fInteligence + fCivilization)
 
-    file.write(str(L)+"\t " + str(fLife) +"\t " + str(fLifeEks) + "\n")
+    # thresholds
+    if (L < 2) or E4 < math.log(2, 10) or E3 < math.log(3, 10) or L > 10.139879:       #maxL - age of the universe
+        return getPoint(maxN)
+
+    #file.write(str(L)+"\t " + str(fLife) +"\t " + str(fLifeEks) + "\n")
     #file.write(str(L) + "\t  " + str(N) + "\t " +str(RStarSample) + "\t " +str( fPlanets) + "\t " +str( nEnvironment) + "\t " +str( fLifeEks) + "\t " +str( fInteligence) + "\t " +str( fCivilization) + '\n')
     return L
 
-fileName = 'kakec.txt'
-file = open(fileName, 'w')
+#fileName = 'kakec.txt'
+#file = open(fileName, 'w')
 
 numHorSec = 48
-noIterationsPerMaxN = 10000
+noIterationsPerMaxN = 70000
 logPoints = np.linspace(0,10,numHorSec)
 
 
@@ -50,5 +57,5 @@ for maxN in logPoints:
     saveData(array,"inf"+str(maxN))
     print("File: inf"+str(maxN)+".txt created")
 
-file.close()
+#file.close()
 print('done')
