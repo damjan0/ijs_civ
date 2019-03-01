@@ -53,7 +53,7 @@ def updateParams(d,params):
     d["L"].append(L)
 
 
-noIterations = 9999999
+noIterations =109999
 
 
 startTime = time.time()
@@ -68,20 +68,19 @@ for i in range(0, noIterations):
 
     fPlanets = random.uniform(-1 , 0)
     nEnvironment = random.uniform(-1 , 0)
-    fLife = float(lifeDist(vMin=-35, vMax=15, tMin=14, tMax=17, mean=0, sigma=200))
+    fLife = float(lifeDist(mean=0, sigma=50))
     fIntelligence = random.uniform(-3 , 0)
     fContact = random.uniform(-2 , 0)
     RStarSample = random.uniform(0 , 2)
     L = random.uniform(2 , 10)
     parameters = [nStars,fPlanets,nEnvironment,fLife,fIntelligence,fContact,RStarSample,L]
 
-
     E3 = nStars + fPlanets + nEnvironment
     E4 = E3 + fLife
     E5 = E4 + fIntelligence
     E6 = E5 + fContact      #This is the result of Sandberg method, for adding new methods just this E-s are replaced
 
-    E7 = RStarSample + fPlanets + nEnvironment + fLife + fIntelligence + fContact + L
+    E7 = RStarSample + fPlanets + nEnvironment + fLife + fIntelligence + fContact + L;
 
     if E7 < math.log(1,10) or E4 < math.log(2,10) or E3 < math.log(3,10) : #underestimations
         updateParams(under,parameters)
