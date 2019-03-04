@@ -7,10 +7,9 @@ from mpl_toolkits.mplot3d import Axes3D
 import scipy.ndimage.filters as fl
 from StandardizeDistribution import StandardizeDistributionW
 
-
 numHorSec = 48
 noBins = 50
-bins = np.linspace(-7,26,noBins+1) #devide N scale
+bins = np.linspace(-3,12,noBins+1) #devide N scale
 horSec = np.linspace(2,10,numHorSec)    #devide Lmax scale
 Z = [None]*numHorSec    #no.hits 2D array - we draw this
 i=0
@@ -32,7 +31,7 @@ Y = np.array(Y)
 Z = np.array(Z)
 
 # PRINT Z aka no_hits table used for other programs
-np.savetxt('no_hits.txt', Z, fmt='%.0f')
+#np.savetxt('no_hits.txt', Z, fmt='%.0f')
 # saveData(Z, "no_hits")   old
 print("Saved no. of hits")
 
