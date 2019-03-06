@@ -40,8 +40,14 @@ def getPoint(maxL=10):
     #resitev = astrophysicsProbability + biotechnicalProbability   #calculates A = number of civ that have ever apperared in the world
     resitev = astrophysicsProbability + biotechnicalProbability + L  # calculates A = number of civ that have ever apperared in the world
 
+    E3 = Nstar + fPlanets + nEnvironment
+    E4 = E3 + fLife
+    E5 = E4 + fInteligence
+
     #threshold if N values are very low
-    if (resitev<0):
+    #if (resitev < 0):       #treshold from min possible solution
+    #if (resitev < 0) or (resitev > 5):       #threshold min and L possible solution
+    if (resitev < 0) or E4 < math.log(2,10) or E3 < math.log(3,10) or (resitev > 5):        #bokal?
         return getPoint(maxL)
 
     return resitev
