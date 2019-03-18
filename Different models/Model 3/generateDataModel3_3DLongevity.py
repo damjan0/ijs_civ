@@ -25,14 +25,11 @@ def getPoint(maxL=10):
     fLifeEks = float(mp.log(fLife, 10))
     #fLifeEks = np.random.lognormal(-2 , 0)
 
-
     resitev = RStarSample + fPlanets + nEnvironment + fLifeEks + fInteligence + fCivilization + L   #calculates N
 
     #threshold if N values are very low
-    if (resitev<-6):
+    if (resitev<0):
         return getPoint(maxL)
-
-    x.append(fLife) #for checking fLife
 
     resitev1 = int(round(10**resitev)) #rounded de-logarithmised solution
 
@@ -56,7 +53,6 @@ def getPoint(maxL=10):
 numHorSec = 48  #on how many parts should we devide L - how many different Lmax should we take
 noIterationsPerMaxL = 1000     #How many points N per each file/maxL - should be as big as possible  ##trenutno 1000, da jih hitrej generira
 logPoints = np.linspace(2,10,numHorSec) #devide on numHorSec equal parts a scale from 2 to 10 -
-x = []  #for checking fLife
 
 #for each Lmax create a file with points
 for maxL in logPoints:
@@ -66,11 +62,5 @@ for maxL in logPoints:
 
     saveData(array,"/inf"+str(maxL))
     print("File: inf"+str(maxL)+".txt created")
-
-#for checking fLife
-x = np.array(x)
-#print("Mean: " + str(np.mean(x)) + " Median: " + str(np.median(x)))
-plt.hist(x,np.linspace(0,1,100),facecolor='blue',alpha=0.75)        #
-#plt.show()
 
 print('done')

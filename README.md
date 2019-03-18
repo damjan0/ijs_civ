@@ -29,6 +29,7 @@ Useable files:  `generateDataModel2.py` to generate points and `plotDataModel2.p
 Model 3: http://adsabs.harvard.edu/full/1983QJRAS..24..283B
 ...
 Useable files:  `generateDataModel3_3DLongevity.py` to generate points and `Model3_3DLongevity.py` to plot it
+
 ---------
 `points4.csv`  480000 points generated from an old code (2019-01-13)
 
