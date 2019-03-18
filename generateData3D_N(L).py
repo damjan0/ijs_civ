@@ -51,7 +51,9 @@ logPoints = np.linspace(2,10,numHorSec) #devide on numHorSec equal parts a scale
 for maxL in logPoints:
     array=[]
     for _ in range(0, noIterationsPerMaxL):
-        array.append(getPoint(maxL))
+        point = getPoint(maxL)
+        if type(point) != type(False):
+            array.append(point)
 
     saveData(array,"/inf"+str(maxL))
     print("File: inf"+str(maxL)+".txt created")
