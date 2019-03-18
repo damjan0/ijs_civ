@@ -8,7 +8,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import math
 from mpmath import mpmathify,mp,mpf
-from logHistogramAdd import logHistogramAdd
+from libraries.logHistogramAdd import logHistogramAdd
 
 '''
 Sandberg: We used a lognormal distribution for the life emergence 

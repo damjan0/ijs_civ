@@ -6,8 +6,8 @@ import matplotlib.pyplot as plt
 import random
 import math
 import time
-from IO import saveData
-from lifeDist import lifeDist, lifeDist2
+from libraries.IO import saveData
+from libraries.lifeDist import lifeDist, lifeDist2
 
 #Generate a point
 def getPoint(maxL=10):
@@ -44,7 +44,7 @@ def getPoint(maxL=10):
 
 #devide Lmax scale
 numHorSec = 48  #on how many parts should we divide L - how many different Lmax should we take
-noIterationsPerMaxL = 100000     #How many points N per each file/maxL - should be as big as possible  ##trenutno 1000, da jih hitrej generira
+noIterationsPerMaxL = 30000     #How many points N per each file/maxL - should be as big as possible  ##trenutno 1000, da jih hitrej generira
 logPoints = np.linspace(2,10,numHorSec) #devide on numHorSec equal parts a scale from 2 to 10 -
 
 #for each Lmax create a file with points

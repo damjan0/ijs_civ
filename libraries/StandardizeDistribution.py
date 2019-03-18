@@ -1,4 +1,4 @@
-from mpLogspace import mpLogspace
+from libraries.mpLogspace import mpLogspace
 from mpmath import mpf
 
 def StandardizeDistribution (xaxis,distribution):

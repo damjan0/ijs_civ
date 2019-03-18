@@ -1,11 +1,11 @@
-from IO import  readData
-from IO import saveData
+from libraries.IO import  readData
+from libraries.IO import saveData
 from matplotlib import cm
 import matplotlib.pyplot as plt
 import numpy as np
 from mpl_toolkits.mplot3d import Axes3D
 import scipy.ndimage.filters as fl
-from StandardizeDistribution import StandardizeDistributionW
+from libraries.StandardizeDistribution import StandardizeDistributionW
 
 
 numHorSec = 48
