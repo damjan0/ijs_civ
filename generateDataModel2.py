@@ -6,8 +6,8 @@ import matplotlib.pyplot as plt
 import random
 import math
 import time
-from IO import saveData
-from lifeDist import lifeDist, lifeDist2
+from libraries.IO import saveData
+from libraries.lifeDist import lifeDist, lifeDist2
 
 '''''
 Model 2: https://arxiv.org/ftp/arxiv/papers/1510/1510.08837.pdf

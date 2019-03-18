@@ -2,9 +2,9 @@
 Sandberg paper:
 https://arxiv.org/abs/1806.02404
 
-`generateData3DLongevity.py`  Generates points for each Lmax and saves it to a file
+`generateData3DL.py`  Generates points for each Lmax and saves it to a file
 
-`3DLongevity.py`  Plots a 3DGraph from files created from before
+`plot3DL.py`  Plots a 3DGraph from files created from before
 
 ---------
 ### Clustering and Boxplots
@@ -12,7 +12,7 @@ Manualy read from a graph for different clusters. For each cluster draw a boxplo
 
 ### Flipping N and L
 Generate points and plot a 3Dgraph where N and L are changed.. calulating L for different Nmax points
-Using `generateData3DN.py` to generate points and `3DN.py` to plot it
+Using `generateData3DN.py` to generate points and `plot3DN.py` to plot it
 
 ### Machine Learning
 Using Machine Learning to get clusters for generated points
