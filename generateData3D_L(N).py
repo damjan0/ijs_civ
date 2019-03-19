@@ -19,10 +19,16 @@ def getPoint(maxN=10):
     nStars = random.uniform(11, 11.60205999132)
 
     # N = np.random.uniform(0 , maxN)                         #loguniform
-    # N = np.random.normal(0, maxN)                          #lognormal
-    N = math.log10(np.random.uniform(10 ** 0, 10 ** maxN))  # uniform
-    # N = math.log10(np.random.normal(10**0, 10**maxN))      #normal
-    # ...    #gauss
+
+    median = maxN / 2  # polovica intervala
+    sigma = median / 3  # tako, da je 3sigma cez cel obseg
+    N = np.random.normal(median, sigma)  # lognormal
+
+    # N = math.log10(np.random.uniform(10 ** 0, 10 ** maxN))  # uniform
+    # N = math.log10(np.random.normal(10**0, 10**maxN))      # lognormal
+
+    #sigmaHalfGauss = 10 ** maxN / 6  # /3 je tako da bo 3sigma cez cel interval
+    #N = np.log10(np.abs(np.random.normal(0, sigmaHalfGauss)))
 
     fLife = lifeDist(mean=0, sigma=50)
     fLifeEks = float(mp.log(fLife, 10))
