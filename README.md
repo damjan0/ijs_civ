@@ -1,7 +1,8 @@
 # IJS Civilizations
 Sandberg paper:
 https://arxiv.org/abs/1806.02404
-Google Drive folder (photos and work reports):[Civilizations](https://drive.google.com/drive/folders/1KFS5QMfw__qhXwCI_gDg8MtZKCieLpp3?fbclid=IwAR0-bxj_o8dvVRoYB_pdN7907-IoynnoTKoz7avpe6dGv4fcNpaKK2r8PwE)
+
+Google Drive folder (photos and work reports): [Civilizations](https://drive.google.com/drive/folders/1KFS5QMfw__qhXwCI_gDg8MtZKCieLpp3?fbclid=IwAR0-bxj_o8dvVRoYB_pdN7907-IoynnoTKoz7avpe6dGv4fcNpaKK2r8PwE)
 
 `generateData3D_N(L).py`  Generates points for each Lmax and saves it to a file
 
@@ -11,7 +12,7 @@ Google Drive folder (photos and work reports):[Civilizations](https://drive.goog
 ### Clustering and Boxplots
 Manualy read from a graph for different clusters. For each cluster draw a boxplot for each parameter
 
-### Flipping N and L
+### Dependency L(N) (Flipping N and L)
 Generate points and plot a 3Dgraph where N and L are changed.. calulating L for different Nmax points
 Using `generateData3D_L(N).py` to generate points and `plot3D_L(N).py` to plot it
 
