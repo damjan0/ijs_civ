@@ -10,7 +10,7 @@ from libraries.StandardizeDistribution import StandardizeDistributionW
 numHorSec = 48
 noBins = 60
 bins = np.linspace(-2,13,noBins+1)
-horSec = np.linspace(0,7,numHorSec)
+horSec = np.linspace(0,4,numHorSec)
 Z = [None]*numHorSec
 i=0
 
