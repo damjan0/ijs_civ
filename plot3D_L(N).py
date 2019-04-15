@@ -35,7 +35,7 @@ Z = np.array(Z)
 ax.plot_surface(X, Y, Z, cmap=cm.coolwarm, shade=True, color='b', alpha=0.8)
 
 ax.set_xlabel("log(L)")
-ax.set_ylabel("log(fixed N)")
+ax.set_ylabel("log(N)")
 ax.set_zlabel("no. hits")
 plt.show()
 

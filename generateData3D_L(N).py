@@ -16,7 +16,7 @@ def sample_value(fromv, tov, dist="fixed"):
         return math.log10(np.random.uniform(10 ** fromv, 10 ** tov))
     elif dist == "halfgauss":
         sigmaHalfGauss = (
-                                     10 ** tov - 10 ** fromv) / 6  # interval/2 je polovic in se /3 je tako da bo 3sigma cez cel interval
+                                     10 ** tov - 10 ** fromv) / 3  #/3 je tako da bo 3sigma cez cel interval
         return np.log10(np.abs(np.random.normal(0, sigmaHalfGauss)) + 10 ** fromv)  # gauss
     elif dist == "lognormal":
         median = (tov - fromv) / 2 + tov  # polovica intervala
@@ -27,7 +27,7 @@ def sample_value(fromv, tov, dist="fixed"):
 
 def getPoint(maxN=10):
 
-    type_dist = "loguniform"
+    type_dist = "lognormal"
 
     RStarSample = sample_value(0, 2, type_dist)# loguniform - uniform - halfgauss - lognormal - fixed
 

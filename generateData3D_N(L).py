@@ -17,7 +17,7 @@ def sample_value(fromv, tov, dist="fixed"):
         return math.log10(np.random.uniform(10 ** fromv, 10 ** tov))
     elif dist == "halfgauss":
         sigmaHalfGauss = (
-                                 10 ** tov - 10 ** fromv) / 6  # interval/2 je polovic in se /3 je tako da bo 3sigma cez cel interval
+                                 10 ** tov - 10 ** fromv) / 3  #/3 je tako da bo 3sigma cez cel interval
         return np.log10(np.abs(np.random.normal(0, sigmaHalfGauss)) + 10 ** fromv)  # gauss
     elif dist == "lognormal":
         median = (tov - fromv) / 2 + tov  # polovica intervala
@@ -27,7 +27,7 @@ def sample_value(fromv, tov, dist="fixed"):
 
 
 def getPoint(maxL=10):
-    type_dist = "loguniform"
+    type_dist = "lognormal"
 
     RStarSample = sample_value(0, 2, type_dist)  # loguniform - uniform - halfgauss - lognormal - fixed
 
@@ -62,7 +62,7 @@ def getPoint(maxL=10):
 # divide Lmax scale
 drawnPoints = 0
 numHorSec = 48  # on how many parts should we divide L - how many different Lmax should we take
-noIterationsPerMaxL = 100000  # How many points N per each file/maxL - should be as big as possible  ##trenutno 1000, da jih hitreje generira
+noIterationsPerMaxL = 30000  # How many points N per each file/maxL - should be as big as possible  ##trenutno 1000, da jih hitreje generira
 logPoints = np.linspace(2, 10, numHorSec)  # devide on numHorSec equal parts a scale from 2 to 10 -
 allPoints = noIterationsPerMaxL * numHorSec
 
