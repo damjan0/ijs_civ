@@ -27,19 +27,19 @@ def sample_value(fromv, tov, dist="fixed"):
 
 def getPoint(maxN=10):
 
-    type = "loguniform"
+    type_dist = "loguniform"
 
-    RStarSample = sample_value(0, 2, type)# loguniform - uniform - halfgauss - lognormal - fixed
+    RStarSample = sample_value(0, 2, type_dist)# loguniform - uniform - halfgauss - lognormal - fixed
 
-    fPlanets = sample_value(-1, 0, type)# loguniform - uniform - halfgauss - lognormal - fixed
+    fPlanets = sample_value(-1, 0, type_dist)# loguniform - uniform - halfgauss - lognormal - fixed
 
-    nEnvironment = sample_value(-1, 0, type)# loguniform - uniform - halfgauss - lognormal - fixed
+    nEnvironment = sample_value(-1, 0, type_dist)# loguniform - uniform - halfgauss - lognormal - fixed
 
-    fIntelligence = sample_value(-3, 0, type)# loguniform - uniform - halfgauss - lognormal - fixed
+    fIntelligence = sample_value(-3, 0, type_dist)# loguniform - uniform - halfgauss - lognormal - fixed
 
-    fCivilization = sample_value(-2, 0, type)# loguniform - uniform - halfgauss - lognormal - fixed
+    fCivilization = sample_value(-2, 0, type_dist)# loguniform - uniform - halfgauss - lognormal - fixed
 
-    N = sample_value(0, maxN, type)# loguniform - uniform - halfgauss - lognormal - fixed
+    N = sample_value(0, maxN, type_dist)# loguniform - uniform - halfgauss - lognormal - fixed
 
     fLife = lifeDist(mean=0, sigma=50)
     fLifeEks = float(mp.log(fLife, 10))
