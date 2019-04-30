@@ -8,6 +8,7 @@ __pycache__/
 
 *.csv
 data/
+model 3/data
 
 # Distribution / packaging
 .Python
@@ -110,3 +111,4 @@ venv.bak/
 /.project
 /.pydevproject
 /.DS_Store
+no_hits.txt

@@ -1,11 +1,14 @@
-from IO import  readData
-from IO import saveData
+from libraries.IO import saveData,readData
+from libraries.lifeDist import lifeDist, lifeDist2
 from matplotlib import cm
 import matplotlib.pyplot as plt
 import numpy as np
 from mpl_toolkits.mplot3d import Axes3D
 import scipy.ndimage.filters as fl
-from StandardizeDistribution import StandardizeDistributionW
+#from StandardizeDistribution import StandardizeDistributionW
+import sys
+def printf(format, *args):
+    sys.stdout.write(format % args)
 
 
 numHorSec = 48
@@ -18,10 +21,11 @@ i=0
 #go through the files
 for fileNo in horSec:
     try:
-        array = readData("/inf"+str(fileNo))
+        array = readData("/uncut"+str(fileNo))
     except FileNotFoundError: array = 0
     Z[i],_ = np.histogram(array, bins)
     #Z[i] = np.multiply(Z[i], 2.0/float(fileNo), out=Z[i], casting="unsafe")    # decay factor is 2/fileNo = 2/maxL
+    printf("L %.2f - N %.2f\n",fileNo,np.log10(np.average(array)))
     i+=1
 
 X, Y = np.meshgrid(bins[0:-1],horSec)
