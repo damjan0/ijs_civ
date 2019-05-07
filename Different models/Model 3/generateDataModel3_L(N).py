@@ -1,0 +1,89 @@
+import mpmath as mp
+import numpy as np
+import matplotlib.mlab as mlab
+import matplotlib.pyplot as plt
+import random
+import math
+import time
+from libraries.IO import saveData
+from libraries.lifeDist import lifeDist, lifeDist2
+from scipy.optimize import fsolve
+
+
+def sample_value(fromv, tov, dist="fixed"):
+    if dist == "loguniform":
+        return random.uniform(fromv, tov)
+    elif dist == "uniform":
+        return math.log10(np.random.uniform(10 ** fromv, 10 ** tov))
+    elif dist == "halfgauss":
+        sigmaHalfGauss = (
+                                 10 ** tov - 10 ** fromv) / 3  # /3 je tako da bo 3sigma cez cel interval
+        return np.log10(np.abs(np.random.normal(0, sigmaHalfGauss)) + 10 ** fromv)  # gauss
+    elif dist == "lognormal":
+        median = (tov - fromv) / 2 + tov  # polovica intervala
+        sigma = (median - tov) / 3  # tako, da je 3sigma cez cel obseg
+        return np.random.normal(median, sigma)  # lognormal
+    return tov
+
+
+def getPoint(maxN=10):
+    type_dist = "loguniform"
+
+    RStarSample = sample_value(0, 2, type_dist)  # loguniform - uniform - halfgauss - lognormal - fixed
+
+    fPlanets = sample_value(-1, 0, type_dist)  # loguniform - uniform - halfgauss - lognormal - fixed
+
+    nEnvironment = sample_value(-1, 0, type_dist)  # loguniform - uniform - halfgauss - lognormal - fixed
+
+    fIntelligence = sample_value(-3, 0, type_dist)  # loguniform - uniform - halfgauss - lognormal - fixed
+
+    fCivilization = sample_value(-2, 0, type_dist)  # loguniform - uniform - halfgauss - lognormal - fixed
+
+    N = 10**sample_value(0, maxN, type_dist)  # loguniform - uniform - halfgauss - lognormal - fixed
+
+    fLife = float(lifeDist(mean=0, sigma=50))
+    fLifeEks = float(mp.log(fLife, 10))
+
+    f = 10**(RStarSample + fPlanets + nEnvironment + fLifeEks + fIntelligence + fCivilization)
+
+    nStars = random.uniform(11, 11.60205999132)
+
+    A = random.gauss(1, 0.5)
+    v = random.gauss(0.016 * 300000, 2000)
+    ############################################################################# TODO
+    #R = v * random.uniform(0, L)  # radius of inhabited zone, I assume they have been expanding since the became detectable, which is random
+    # ok tle ^ not je dejansko tudi L, nisem tega vidu prej... to je treba se nekako vkljucit
+    #bom dal V*L/2
+
+    # Tle je enacba more bit 0 na eni strani in vse ostalo na drugi
+    #function = lambda L: 1 / nStars * f * A * L * (L * v * (R ** 2 - 2 * L * R * v + 2 * L ^ 2 * v ^ 2 * (1 - mp.e ** (-R / (L * v))))) - N
+    function = lambda L: 1 / nStars * f * A * L * (L * v * ((v*L/2) ** 2 - 2 * L * (v*L/2) * v + 2 * L ^ 2 * v ** 2 * (1 - float(mp.e ** (-(v*L/2) / (L * v)))))) - N
+    L_initial_guess = 10 ** 4  # to je se za malo probat
+    L_solution = fsolve(function, L_initial_guess)  # numerical solver
+
+    return L_solution
+
+
+drawnPoints = 0
+numHorSec = 48
+noIterationsPerMaxN = 100
+logPoints = np.linspace(0, 4, numHorSec)
+allPoints = noIterationsPerMaxN * numHorSec
+
+fixed_n = [1, 10, 100, 1000, 10000]
+
+for maxN in logPoints:
+    # for maxN in fixed_n:
+    array = []
+    for i in range(0, noIterationsPerMaxN):
+        print('try ',i)
+        point = getPoint(maxN)
+        if type(point) != type(False):
+            array.append(point)
+
+    saveData(array, "inf" + str(maxN))
+    print("File: inf" + str(maxN) + ".txt created. no of points:" + str(len(array)))
+    drawnPoints = drawnPoints + len(array)
+    pointFraction = (drawnPoints * 100) / allPoints
+print('done')
+print('Drawn points: ' + str(drawnPoints) + '  Which is: ' + str(pointFraction) + '%')
