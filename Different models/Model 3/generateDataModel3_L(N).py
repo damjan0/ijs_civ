@@ -46,7 +46,7 @@ def getPoint(maxN=10):
 
     f = 10**(RStarSample + fPlanets + nEnvironment + fLifeEks + fIntelligence + fCivilization)
 
-    nStars = random.uniform(11, 11.60205999132)
+    nStars = 10**random.uniform(11, 11.60205999132)
 
     A = random.gauss(1, 0.5)
     v = random.gauss(0.016 * 300000, 2000)
@@ -57,11 +57,11 @@ def getPoint(maxN=10):
 
     # Tle je enacba more bit 0 na eni strani in vse ostalo na drugi
     #function = lambda L: 1 / nStars * f * A * L * (L * v * (R ** 2 - 2 * L * R * v + 2 * L ^ 2 * v ^ 2 * (1 - mp.e ** (-R / (L * v))))) - N
-    function = lambda L: 1 / nStars * f * A * L * (L * v * ((v*L/2) ** 2 - 2 * L * (v*L/2) * v + 2 * L ^ 2 * v ** 2 * (1 - float(mp.e ** (-(v*L/2) / (L * v)))))) - N
+    function = lambda L: (1 / nStars) * f * A * L * (L * v * ((v*L/2) ** 2 - 2 * L * (v*L/2) * v + 2 * L ** 2 * v ** 2 * (1 - float(mp.e ** (-(v*L/2) / (L * v)))))) - N
     L_initial_guess = 10 ** 4  # to je se za malo probat
     L_solution = fsolve(function, L_initial_guess)  # numerical solver
 
-    return L_solution
+    return L_solution[0]
 
 
 drawnPoints = 0
@@ -76,7 +76,6 @@ for maxN in logPoints:
     # for maxN in fixed_n:
     array = []
     for i in range(0, noIterationsPerMaxN):
-        print('try ',i)
         point = getPoint(maxN)
         if type(point) != type(False):
             array.append(point)
