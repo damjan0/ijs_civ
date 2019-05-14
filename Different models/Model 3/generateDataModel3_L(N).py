@@ -26,8 +26,7 @@ def sample_value(fromv, tov, dist="fixed"):
     return tov
 
 
-def getPoint(maxN=10):
-    type_dist = "loguniform"
+def getPoint(maxN=10, type_dist = "loguniform"):
 
     RStarSample = sample_value(0, 2, type_dist)  # loguniform - uniform - halfgauss - lognormal - fixed
 
@@ -48,8 +47,8 @@ def getPoint(maxN=10):
 
     nStars = 10**random.uniform(11, 11.60205999132)
 
-    A = random.gauss(1, 0.5)
-    v = random.gauss(0.016 * 300000, 2000)
+    A = abs(random.gauss(1, 0.2))
+    v = abs(random.gauss(0.016 * 300000, 2000))
     ############################################################################# TODO
     #R = v * random.uniform(0, L)  # radius of inhabited zone, I assume they have been expanding since the became detectable, which is random
     # ok tle ^ not je dejansko tudi L, nisem tega vidu prej... to je treba se nekako vkljucit
@@ -59,16 +58,16 @@ def getPoint(maxN=10):
     #function = lambda L: 1 / nStars * f * A * L * (L * v * (R ** 2 - 2 * L * R * v + 2 * L ^ 2 * v ^ 2 * (1 - mp.e ** (-R / (L * v))))) - N
 
     B = 0.004 * ((9.461 * 10 ** (-12)) ** 3) # number density of stars as per Wikipedia
-    function = lambda L: (1 / nStars) * f * A * L * (B * fPlanets * nEnvironment * 4 * math.pi * (L * v * ((v*L/2) ** 2 - 2 * L * (v*L/2) * v + 2 * L ** 2 * v ** 2 * (1 - float(mp.e ** (-(v*L/2) / (L * v)))))) + 1) - N
+    function = lambda L: f * A * L * (B * 10**fPlanets * 10**nEnvironment * 4 * math.pi * (L * v * ((v*L/2) ** 2 - 2 * L * (v*L/2) * v + 2 * L ** 2 * v ** 2 * (1 - float(mp.e ** (-(v*L/2) / (L * v)))))) + 1) - N
     L_initial_guess = 10 ** 2  # to je se za malo probat
-    L_solution = fsolve(function, L_initial_guess)  # numerical solver
+    L_solution, info, ier, mes = fsolve(function, L_initial_guess, full_output=1)  # numerical solver
 
-    return L_solution[0]
+    return math.log(L_solution[0], 10), mes
 
 
 drawnPoints = 0
 numHorSec = 48
-noIterationsPerMaxN = 100
+noIterationsPerMaxN = 2000
 logPoints = np.linspace(0, 4, numHorSec)
 allPoints = noIterationsPerMaxN * numHorSec
 
@@ -77,8 +76,12 @@ fixed_n = [1, 10, 100, 1000, 10000]
 for maxN in logPoints:
     # for maxN in fixed_n:
     array = []
+    type_dist = "loguniform"
     for i in range(0, noIterationsPerMaxN):
-        point = getPoint(maxN)
+        pointAll = getPoint(maxN, type_dist)
+        point = pointAll[0]
+        if abs(point-6)<0.5:
+            print(pointAll[1])
         if type(point) != type(False):
             array.append(point)
 

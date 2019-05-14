@@ -21,7 +21,8 @@ i=0
 #go through the files
 for fileNo in horSec:
     try:
-        array = readData("/uncut"+str(fileNo))
+        type_dist = "loguniform"
+        array = readData("/inf_"+ type_dist + "_" +str(fileNo))
     except FileNotFoundError: array = 0
     Z[i],_ = np.histogram(array, bins)
     #Z[i] = np.multiply(Z[i], 2.0/float(fileNo), out=Z[i], casting="unsafe")    # decay factor is 2/fileNo = 2/maxL
