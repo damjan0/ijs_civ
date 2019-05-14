@@ -1,5 +1,4 @@
-from libraries.IO import  readData
-from libraries.IO import saveData
+from libraries.IO import readData
 from matplotlib import cm
 import matplotlib.pyplot as plt
 import numpy as np
@@ -8,17 +7,19 @@ import scipy.ndimage.filters as fl
 from libraries.StandardizeDistribution import StandardizeDistributionW
 
 numHorSec = 48
-noBins = 50
-bins = np.linspace(-3,7,noBins+1) #devide N scale
-horSec = np.linspace(2,10,numHorSec)    #devide Lmax scale
-Z = [None]*numHorSec    #no.hits 2D array - we draw this
-i=0
+#numHorSec = 5
+noBins = 60
+bins = np.linspace(-3, 7, noBins + 1)
+horSec = np.linspace(0, 4, numHorSec)
+Z = [None] * numHorSec
+i = 0
 
-# go through the files
 for fileNo in horSec:
-    array = readData("/inf" + str(fileNo))
+    array = readData("inf" + str(fileNo))
     Z[i], _ = np.histogram(array, bins)
     # Z[i] = np.multiply(Z[i], 2.0/float(fileNo), out=Z[i], casting="unsafe")    # decay factor is 2/fileNo = 2/maxL
+    #print(np.argmax(Z[0]))
+    print(str(int(10 ** fileNo)) + " - " + str(bins[np.argmax(Z[i])]))
     i += 1
 
 X, Y = np.meshgrid(bins[0:-1], horSec)
@@ -30,16 +31,11 @@ X = np.array(X)
 Y = np.array(Y)
 Z = np.array(Z)
 
-# PRINT Z aka no_hits table used for other programs
-#np.savetxt('no_hits.txt', Z, fmt='%.0f')
-# saveData(Z, "no_hits")   old
-print("Saved no. of hits")
-
 # Plot the surface
 ax.plot_surface(X, Y, Z, cmap=cm.coolwarm, shade=True, color='b', alpha=0.8)
 
-ax.set_xlabel("log(N)")
-ax.set_ylabel("log(maxL)")
+ax.set_xlabel("log(L)")
+ax.set_ylabel("log(N)")
 ax.set_zlabel("no. hits")
 plt.show()
 
