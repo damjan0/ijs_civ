@@ -57,8 +57,10 @@ def getPoint(maxN=10):
 
     # Tle je enacba more bit 0 na eni strani in vse ostalo na drugi
     #function = lambda L: 1 / nStars * f * A * L * (L * v * (R ** 2 - 2 * L * R * v + 2 * L ^ 2 * v ^ 2 * (1 - mp.e ** (-R / (L * v))))) - N
-    function = lambda L: (1 / nStars) * f * A * L * (L * v * ((v*L/2) ** 2 - 2 * L * (v*L/2) * v + 2 * L ** 2 * v ** 2 * (1 - float(mp.e ** (-(v*L/2) / (L * v)))))) - N
-    L_initial_guess = 10 ** 4  # to je se za malo probat
+
+    B = 0.004 * ((9.461 * 10 ** (-12)) ** 3) # number density of stars as per Wikipedia
+    function = lambda L: (1 / nStars) * f * A * L * (B * fPlanets * nEnvironment * 4 * math.pi * (L * v * ((v*L/2) ** 2 - 2 * L * (v*L/2) * v + 2 * L ** 2 * v ** 2 * (1 - float(mp.e ** (-(v*L/2) / (L * v)))))) + 1) - N
+    L_initial_guess = 10 ** 2  # to je se za malo probat
     L_solution = fsolve(function, L_initial_guess)  # numerical solver
 
     return L_solution[0]
