@@ -85,7 +85,7 @@ def getPoint(maxL=10):
 
 # devide Lmax scale
 numHorSec = 48  # on how many parts should we devide L - how many different Lmax should we take
-noIterationsPerMaxL = 50000  # How many points N per each file/maxL - should be as big as possible  ##trenutno 1000, da jih hitreje generira
+noIterationsPerMaxL = 30000  # How many points N per each file/maxL - should be as big as possible  ##trenutno 1000, da jih hitreje generira
 logPoints = np.linspace(2, 10, numHorSec)  # devide on numHorSec equal parts a scale from 2 to 10 -
 # x = []
 # y=[]
