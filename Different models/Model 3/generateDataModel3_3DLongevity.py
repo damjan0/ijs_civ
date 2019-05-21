@@ -61,7 +61,7 @@ def getPoint(maxL=10, type_dist="loguniform"):
     v = abs(random.gauss(0.016 * 300000, 10)) * 365 * 24 * 60 * 60
     # L1 = random.uniform(2, maxL)
     L1 = L
-    B = 0.004 * ((9.461 * 10 ** (-12)) ** 3)  # number density of stars as per Wikipedia
+    B = 0.004 / ((9.461 * 10 ** (12)) ** 3)  # number density of stars as per Wikipedia
     R = v * random.uniform(0,
                            L)  # radius of inhabited zone, I assume they have been expanding since the became detectable, which is random
     # integral = integrate.quad(lambda r: r ** 2 * math.exp(-(R - r) / (v * 10 ** L1)), 0, R)

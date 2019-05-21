@@ -57,10 +57,9 @@ def getPoint(maxN=10, type_dist="loguniform"):
     # Tle je enacba more bit 0 na eni strani in vse ostalo na drugi
     # function = lambda L: 1 / nStars * f * A * L * (L * v * (R ** 2 - 2 * L * R * v + 2 * L ^ 2 * v ^ 2 * (1 - mp.e ** (-R / (L * v))))) - N
 
-    B = 0.004 / ((9.461 * 10 ** 12) ** 3)  # number density of stars as per Wikipedia
-    function = lambda L: f * A * L * (B * 10 ** fPlanets * 10 ** nEnvironment * 4 * math.pi * (
-                L * v * ((v * L / 2) ** 2 - 2 * L * (v * L / 2) * v + 2 * L ** 2 * v ** 2 * 0.393469)) + 1) - N
-    function1 = lambda L: f * A * (L + 5.13342 * 10 ** 10 * 10 ** (fPlanets + nEnvironment) * B * L ** 4) - N
+    B = 0.004 / ((9.461 * 10 ** (12)) ** 3) # number density of stars as per Wikipedia
+    function = lambda L: f * A * L * (B * 10**fPlanets * 10**nEnvironment * 4 * math.pi * (L * v * ((v*L/2) ** 2 - 2 * L * (v*L/2) * v + 2 * L ** 2 * v ** 2 * 0.393469)) + 1) - N
+    function1 = lambda L: f * A * (L + 5.13342 * 10**10 * 10** (fPlanets + nEnvironment) * B * L**4) - N
     L_initial_guess = 10 ** 2  # to je se za malo probat
     L_solution, info, ier, mes = fsolve(function1, L_initial_guess, full_output=1)  # numerical solver
     #print(np.log10(L_solution[0]), ' sol ', L_solution, ' info ', info, ' ier ', ier, ' mes ', mes)
