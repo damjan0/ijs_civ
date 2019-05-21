@@ -63,7 +63,7 @@ def getPoint(maxN=10, type_dist="loguniform"):
     L_initial_guess = 10 ** 2  # to je se za malo probat
     L_solution, info, ier, mes = fsolve(function1, L_initial_guess, full_output=1)  # numerical solver
     #print(np.log10(L_solution[0]), ' sol ', L_solution, ' info ', info, ' ier ', ier, ' mes ', mes)
-    print(np.log10(L_solution[0]), ' sol ', L_solution, ' ier ', ier, ' f ',f)
+    #print(np.log10(L_solution[0]), ' sol ', L_solution, ' ier ', ier, ' f ',f)
 
     return math.log(L_solution[0], 10), mes
 
@@ -79,7 +79,7 @@ fixed_n = [1, 10, 100, 1000, 10000]
 for maxN in logPoints:
     # for maxN in fixed_n:
     array = []
-    type_dist = "uniform"
+    type_dist = "loguniform"
     for i in range(0, noIterationsPerMaxN):
         pointAll = getPoint(maxN, type_dist)
         point = pointAll[0]

@@ -13,7 +13,7 @@ Z = []    #no.hits 2D array - we draw this
 horSec = np.linspace(2,10,numHorSec)
 
 for fileNo in horSec:
-    array = readData("/inf_halfgauss_"+str(fileNo))
+    array = readData("/inf"+str(fileNo))
     #array = readData("/inf_lognormal_"+str(fileNo))
     #array = readData("/inf_loguni_"+str(fileNo))
     #array = readData("/inf_uni_"+str(fileNo))
@@ -22,16 +22,18 @@ for fileNo in horSec:
 
 nV, binsV, patchesV = plt.hist(Z, 200)
 
-m = np.where(nV == nV.max())
+out = fl.gaussian_filter(nV, 2)
+
+m = np.where(out == out.max())
 m1 = binsV[m][0]
 
 print('Največja verjetnost: N = '+ str(10**m1))
 plt.cla()
-plt.plot(binsV[0:-1], nV,'red')
+plt.plot(binsV[0:-1], out,'red')
 plt.ylabel('frequency')
 plt.xlabel('Log(N)')
 #plt.legend(loc=1)
-plt.title('Halfgauss distribution for L')
+plt.title('Loguniform distribution for L')
 #plt.annotate('max', (m1, 0), annotation_clip=False)
 plt.axvline(m1, color ='r', alpha = 0.5)
 plt.show()

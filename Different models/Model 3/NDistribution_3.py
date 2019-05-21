@@ -13,18 +13,20 @@ Z = []    #no.hits 2D array - we draw this
 horSec = np.linspace(2,10,numHorSec)
 
 for fileNo in horSec:
-    array = readData("/inf_"+str(fileNo))
+    array = readData("inf_loguniform_"+str(fileNo))
     Z+=array
 
 
 nV, binsV, patchesV = plt.hist(Z, 200)
 
-m = np.where(nV == nV.max())
+out = fl.gaussian_filter(nV, 2)
+
+m = np.where(out == out.max())
 m1 = binsV[m][0]
 
 print('Največja verjetnost: N = '+ str(10**m1))
 plt.cla()
-plt.plot(binsV[0:-1], nV,'red')
+plt.plot(binsV[0:-1], out,'red')
 plt.ylabel('frequency')
 plt.xlabel('Log(N)')
 #plt.legend(loc=1)

@@ -19,12 +19,14 @@ for fileNo in horSec:
 
 nV, binsV, patchesV = plt.hist(Z, 200)
 
-m = np.where(nV == nV.max())
+out = fl.gaussian_filter(nV, 2)
+
+m = np.where(out == out.max())
 m1 = binsV[m][0]
 
 print('Največja verjetnost: N = '+ str(10**m1))
 plt.cla()
-plt.plot(binsV[0:-1], nV,'red')
+plt.plot(binsV[0:-1], out,'red')
 plt.ylabel('frequency')
 plt.xlabel('Log(N)')
 #plt.legend(loc=1)
