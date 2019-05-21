@@ -10,6 +10,7 @@ from libraries.IO import saveData
 from libraries.lifeDist import lifeDist, lifeDist2
 from scipy import integrate
 
+
 def sample_value(fromv, tov, dist="fixed"):
     if dist == "loguniform":
         return random.uniform(fromv, tov)
@@ -17,7 +18,7 @@ def sample_value(fromv, tov, dist="fixed"):
         return math.log10(np.random.uniform(10 ** fromv, 10 ** tov))
     elif dist == "halfgauss":
         sigmaHalfGauss = (
-                                 10 ** tov - 10 ** fromv) / 3  #/3 je tako da bo 3sigma cez cel interval
+                                 10 ** tov - 10 ** fromv) / 3  # /3 je tako da bo 3sigma cez cel interval
         return np.log10(np.abs(np.random.normal(0, sigmaHalfGauss)) + 10 ** fromv)  # gauss
     elif dist == "lognormal":
         median = (tov - fromv) / 2 + tov  # polovica intervala
@@ -25,9 +26,9 @@ def sample_value(fromv, tov, dist="fixed"):
         return np.random.normal(median, sigma)  # lognormal
     return tov
 
+
 # Generate a point
 def getPoint(maxL=10, type_dist="loguniform"):
-
     RStarSample = sample_value(0, 2, type_dist)  # loguniform - uniform - halfgauss - lognormal - fixed
 
     fPlanets = sample_value(-1, 0, type_dist)  # loguniform - uniform - halfgauss - lognormal - fixed
@@ -47,32 +48,37 @@ def getPoint(maxL=10, type_dist="loguniform"):
     resitev = RStarSample + fPlanets + nEnvironment + fLifeEks + fIntelligence + fCivilization + L  # calculates N
 
     # threshold if N values are very low
-    #if (resitev < 0):
+    # if (resitev < 0):
     #    return False
 
-    resitev1 = int(round(10 ** resitev))  # rounded de-logarithmised solution
+    resitev1 = 10 ** resitev  # rounded de-logarithmised solution
 
     koncnaResitev = 0
 
     # for i in range(resitev1):
-    A = abs(random.gauss(1, 0.2))
-    v = abs(random.gauss(0.016 * 300000, 10))*365*24*60*60
+    # A = abs(random.gauss(1, 0.2))
+    A = 1
+    v = abs(random.gauss(0.016 * 300000, 10)) * 365 * 24 * 60 * 60
     # L1 = random.uniform(2, maxL)
     L1 = L
     B = 0.004 * ((9.461 * 10 ** (-12)) ** 3)  # number density of stars as per Wikipedia
     R = v * random.uniform(0,
                            L)  # radius of inhabited zone, I assume they have been expanding since the became detectable, which is random
-    #integral = integrate.quad(lambda r: r ** 2 * math.exp(-(R - r) / (v * 10 ** L1)), 0, R)
-    integral = L1*v*(R**2 - 2*L1*R*v + 2*(1- math.e**(-R/(L1*v)))*L1**2*v**2)
+    # integral = integrate.quad(lambda r: r ** 2 * math.exp(-(R - r) / (v * 10 ** L1)), 0, R)
+    integral = L1 * v * (R ** 2 - 2 * L1 * R * v + 2 * (1 - math.e ** (-R / (L1 * v))) * L1 ** 2 * v ** 2)
 
-    n = B * 10**fPlanets * 10**nEnvironment * 4 * math.pi * integral
+    n = B * 10 ** fPlanets * 10 ** nEnvironment * 4 * math.pi * integral
 
-    koncnaResitev = A * (n + 1) * resitev1
+    koncnaResitev0 = A * (n + 1) * resitev1
+    koncnaResitev1 = math.log10(koncnaResitev0)
 
-    if koncnaResitev == 0:
-        return 0
+    #print('n ',n,' integral ',integral,' resitev1', resitev1,'resitev', resitev,' koncnaResitev0 ',koncnaResitev0,' koncnaResitev1 ',koncnaResitev1)
 
-    return math.log10(abs(koncnaResitev))
+    if koncnaResitev1 < 0 or koncnaResitev1 > 4:
+        return False
+
+    return koncnaResitev1
+
 
 # devide Lmax scale
 numHorSec = 48  # on how many parts should we devide L - how many different Lmax should we take
@@ -88,7 +94,7 @@ for maxL in logPoints:
         if type(point) != type(False):
             array.append(point)
 
-    saveData(array, "/inf_" + type_dist + "_"+ str(maxL))
-    print("File: inf_" + type_dist + "_"+ str(maxL) + ".txt created")
+    saveData(array, "/inf_" + type_dist + "_" + str(maxL))
+    print("File: inf_" + type_dist + "_" + str(maxL) + ".txt created")
 
 print('done')

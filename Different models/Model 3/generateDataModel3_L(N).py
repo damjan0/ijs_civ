@@ -47,7 +47,8 @@ def getPoint(maxN=10, type_dist = "loguniform"):
 
     nStars = 10**random.uniform(11, 11.60205999132)
 
-    A = abs(random.gauss(1, 0.2))
+    #A = abs(random.gauss(1, 0.2))
+    A = 1
     v = abs(random.gauss(0.016 * 300000, 10))*365*24*60*60
     ############################################################################# TODO
     #R = v * random.uniform(0, L)  # radius of inhabited zone, I assume they have been expanding since the became detectable, which is random
