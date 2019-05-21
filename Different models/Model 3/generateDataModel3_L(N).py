@@ -63,6 +63,7 @@ def getPoint(maxN=10, type_dist = "loguniform"):
     function1 = lambda L: f * A * (L + 5.13342 * 10**10 * 10** (fPlanets + nEnvironment) * B * L**4) - N
     L_initial_guess = 10 ** 2  # to je se za malo probat
     L_solution, info, ier, mes = fsolve(function1, L_initial_guess, full_output=1)  # numerical solver
+    print(np.log10(L_solution[0]))
 
     return math.log(L_solution[0], 10), mes
 
