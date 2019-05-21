@@ -72,8 +72,11 @@ def getPoint(maxN=10, type_dist="loguniform"):
     if ier != 1:
         return False
     #    print(np.log10(L_solution[0]), ' sol ', L_solution, ' ier ', ier, ' f ', f)
+    L = math.log(L_solution[0], 10)
+    if (L < 0) or E4 < math.log(2, 10) or E3 < math.log(3, 10) or L > 10.139879:  # maxL - age of the universe
+        return False
 
-    return math.log(L_solution[0], 10), mes
+    return L
 
 
 drawnPoints = 0
@@ -87,14 +90,14 @@ fixed_n = [1, 10, 100, 1000, 10000]
 for maxN in logPoints:
     # for maxN in fixed_n:
     array = []
-    type_dist = "loguniform"
+    type_dist = "uniform"
     for i in range(0, noIterationsPerMaxN):
         point = getPoint(maxN, type_dist)
         # point = pointAll[0]
         # if abs(point-6)<0.5:
         #     print(pointAll[1])
         if type(point) != type(False):
-            array.append(point[0])
+            array.append(point)
 
     saveData(array, "inf" + str(maxN))
     print("File: inf" + str(maxN) + ".txt created. no of points:" + str(len(array)))
