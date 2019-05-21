@@ -41,6 +41,6 @@ def draw_L(type_dist):
 # distributions = ["loguniform", "uniform", "halfgauss", "lognormal"]
 #
 # for d in distributions:
-draw_L("loguniform")
+draw_L("uniform")
 #
 # print("REALLY DONE!")
