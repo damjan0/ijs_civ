@@ -44,7 +44,12 @@ def getPoint(maxN=10, type_dist="loguniform"):
 
     f = 10 ** (RStarSample + fPlanets + nEnvironment + fLifeEks + fIntelligence + fCivilization)
 
-    nStars = 10 ** random.uniform(11, 11.60205999132)
+    nStars = random.uniform(11, 11.60205999132)
+    E3 = nStars + fPlanets + nEnvironment
+    E4 = E3 + fLife
+    meje = RStarSample + fPlanets + nEnvironment + fLifeEks + fIntelligence + fCivilization + 10
+    if E4 < 2 or E3 < 3 or meje < 0:
+        return False
 
     # A = abs(random.gauss(1, 0.2))
     A = 1
@@ -57,13 +62,16 @@ def getPoint(maxN=10, type_dist="loguniform"):
     # Tle je enacba more bit 0 na eni strani in vse ostalo na drugi
     # function = lambda L: 1 / nStars * f * A * L * (L * v * (R ** 2 - 2 * L * R * v + 2 * L ^ 2 * v ^ 2 * (1 - mp.e ** (-R / (L * v))))) - N
 
-    B = 0.004 / ((9.461 * 10 ** (12)) ** 3) # number density of stars as per Wikipedia
-    function = lambda L: f * A * L * (B * 10**fPlanets * 10**nEnvironment * 4 * math.pi * (L * v * ((v*L/2) ** 2 - 2 * L * (v*L/2) * v + 2 * L ** 2 * v ** 2 * 0.393469)) + 1) - N
-    function1 = lambda L: f * A * (L + 5.13342 * 10**10 * 10** (fPlanets + nEnvironment) * B * L**4) - N
+    B = 0.004 / ((9.461 * 10 ** (12)) ** 3)  # number density of stars as per Wikipedia
+    function = lambda L: f * A * L * (B * 10 ** fPlanets * 10 ** nEnvironment * 4 * math.pi * (
+            L * v * ((v * L / 2) ** 2 - 2 * L * (v * L / 2) * v + 2 * L ** 2 * v ** 2 * 0.393469)) + 1) - N
+    function1 = lambda L: f * A * (L + 5.13342 * 10 ** 10 * 10 ** (fPlanets + nEnvironment) * B * L ** 4) - N
     L_initial_guess = 10 ** 2  # to je se za malo probat
     L_solution, info, ier, mes = fsolve(function1, L_initial_guess, full_output=1)  # numerical solver
-    #print(np.log10(L_solution[0]), ' sol ', L_solution, ' info ', info, ' ier ', ier, ' mes ', mes)
-    print(np.log10(L_solution[0]), ' sol ', L_solution, ' ier ', ier, ' f ',f)
+    # print(np.log10(L_solution[0]), ' sol ', L_solution, ' info ', info, ' ier ', ier, ' mes ', mes)
+    if ier != 1:
+        return False
+    #    print(np.log10(L_solution[0]), ' sol ', L_solution, ' ier ', ier, ' f ', f)
 
     return math.log(L_solution[0], 10), mes
 
@@ -79,14 +87,14 @@ fixed_n = [1, 10, 100, 1000, 10000]
 for maxN in logPoints:
     # for maxN in fixed_n:
     array = []
-    type_dist = "uniform"
+    type_dist = "loguniform"
     for i in range(0, noIterationsPerMaxN):
-        pointAll = getPoint(maxN, type_dist)
-        point = pointAll[0]
+        point = getPoint(maxN, type_dist)
+        # point = pointAll[0]
         # if abs(point-6)<0.5:
         #     print(pointAll[1])
         if type(point) != type(False):
-            array.append(point)
+            array.append(point[0])
 
     saveData(array, "inf" + str(maxN))
     print("File: inf" + str(maxN) + ".txt created. no of points:" + str(len(array)))

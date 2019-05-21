@@ -55,9 +55,9 @@ def getPoint(maxL=10):
     #rand_tresh = 4
     #if random.random()<0.5:
     rand_tresh = 3
-    if (resitev < 0) or E4 < math.log(2, 10) or E3 < math.log(3, 10) or resitev > 4:
+    #if (resitev < 0) or E4 < math.log(2, 10) or E3 < math.log(3, 10) or resitev > 4:
         # return getPoint(maxL)
-        return False
+    #    return False
 
     return resitev
 
