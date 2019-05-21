@@ -13,7 +13,7 @@ Z = []    #no.hits 2D array - we draw this
 horSec = np.linspace(2,10,numHorSec)
 
 for fileNo in horSec:
-    array = readData("/inf"+str(fileNo))
+    array = readData("/inf_"+str(fileNo))
     Z+=array
 
 

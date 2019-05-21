@@ -27,7 +27,7 @@ def sample_value(fromv, tov, dist="fixed"):
 
 
 def getPoint(maxL=10):
-    type_dist = "lognormal"
+    type_dist = "loguniform"
 
     RStarSample = sample_value(0, 2, type_dist)  # loguniform - uniform - halfgauss - lognormal - fixed
 
@@ -52,7 +52,10 @@ def getPoint(maxL=10):
     resitev = RStarSample + fPlanets + nEnvironment + fLifeEks + fIntelligence + fCivilization + L  # calculates N
 
     # thresholds
-    if (resitev < 0) or E4 < math.log(2, 10) or E3 < math.log(3, 10) or resitev > 5:
+    #rand_tresh = 4
+    #if random.random()<0.5:
+    rand_tresh = 3
+    if (resitev < 0) or E4 < math.log(2, 10) or E3 < math.log(3, 10) or resitev > rand_tresh:
         # return getPoint(maxL)
         return False
 

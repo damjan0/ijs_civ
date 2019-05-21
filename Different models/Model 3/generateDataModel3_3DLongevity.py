@@ -65,7 +65,7 @@ def getPoint(maxL=10, type_dist="loguniform"):
     #integral = integrate.quad(lambda r: r ** 2 * math.exp(-(R - r) / (v * 10 ** L1)), 0, R)
     integral = L1*v*(R**2 - 2*L1*R*v + 2*(1- math.e**(-R/(L1*v)))*L1**2*v**2)
 
-    n = B * 10**fPlanets * nEnvironment * 4 * math.pi * integral
+    n = B * 10**fPlanets * 10**nEnvironment * 4 * math.pi * integral
 
     koncnaResitev = A * (n + 1) * resitev1
 
@@ -76,8 +76,8 @@ def getPoint(maxL=10, type_dist="loguniform"):
 
 # devide Lmax scale
 numHorSec = 48  # on how many parts should we devide L - how many different Lmax should we take
-noIterationsPerMaxL = 30000  # How many points N per each file/maxL - should be as big as possible  ##trenutno 1000, da jih hitrej generira
-logPoints = np.linspace(2, 10, numHorSec)  # devide on numHorSec equal parts a scale from 2 to 10 -
+noIterationsPerMaxL = 30000  # How many points N per each file/maxL - should be as big as possible  ##trenutno 1000, da jih hitreje generira
+logPoints = np.linspace(2, 10, numHorSec)  # divide on numHorSec equal parts a scale from 2 to 10 -
 
 # for each Lmax create a file with points
 for maxL in logPoints:
