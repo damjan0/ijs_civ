@@ -53,7 +53,7 @@ def getPoint(maxN=10):
     L = N - (RStarSample + fPlanets + nEnvironment + fLifeEks + fIntelligence + fCivilization)
 
     # thresholds
-    if (L < 2) or E4 < math.log(2, 10) or E3 < math.log(3,
+    if (L < 0) or E4 < math.log(2, 10) or E3 < math.log(3,
                                                         10) or L > 10.139879:  # maxL - age of the universe - if we are taking drake equation for this moment
         # return getPoint(maxN)
         return False
