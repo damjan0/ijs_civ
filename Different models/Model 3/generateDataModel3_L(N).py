@@ -26,8 +26,7 @@ def sample_value(fromv, tov, dist="fixed"):
     return tov
 
 
-def getPoint(maxN=10, type_dist = "loguniform"):
-
+def getPoint(maxN=10, type_dist="loguniform"):
     RStarSample = sample_value(0, 2, type_dist)  # loguniform - uniform - halfgauss - lognormal - fixed
 
     fPlanets = sample_value(-1, 0, type_dist)  # loguniform - uniform - halfgauss - lognormal - fixed
@@ -38,32 +37,34 @@ def getPoint(maxN=10, type_dist = "loguniform"):
 
     fCivilization = sample_value(-2, 0, type_dist)  # loguniform - uniform - halfgauss - lognormal - fixed
 
-    N = 10**sample_value(0, maxN, type_dist)  # loguniform - uniform - halfgauss - lognormal - fixed
+    N = 10 ** sample_value(0, maxN, type_dist)  # loguniform - uniform - halfgauss - lognormal - fixed
 
     fLife = float(lifeDist(mean=0, sigma=50))
     fLifeEks = float(mp.log(fLife, 10))
 
-    f = 10**(RStarSample + fPlanets + nEnvironment + fLifeEks + fIntelligence + fCivilization)
+    f = 10 ** (RStarSample + fPlanets + nEnvironment + fLifeEks + fIntelligence + fCivilization)
 
-    nStars = 10**random.uniform(11, 11.60205999132)
+    nStars = 10 ** random.uniform(11, 11.60205999132)
 
-    #A = abs(random.gauss(1, 0.2))
+    # A = abs(random.gauss(1, 0.2))
     A = 1
-    v = abs(random.gauss(0.016 * 300000, 10))*365*24*60*60
+    v = abs(random.gauss(0.016 * 300000, 10)) * 365 * 24 * 60 * 60
     ############################################################################# TODO
-    #R = v * random.uniform(0, L)  # radius of inhabited zone, I assume they have been expanding since the became detectable, which is random
+    # R = v * random.uniform(0, L)  # radius of inhabited zone, I assume they have been expanding since the became detectable, which is random
     # ok tle ^ not je dejansko tudi L, nisem tega vidu prej... to je treba se nekako vkljucit
-    #bom dal V*L/2
+    # bom dal V*L/2
 
     # Tle je enacba more bit 0 na eni strani in vse ostalo na drugi
-    #function = lambda L: 1 / nStars * f * A * L * (L * v * (R ** 2 - 2 * L * R * v + 2 * L ^ 2 * v ^ 2 * (1 - mp.e ** (-R / (L * v))))) - N
+    # function = lambda L: 1 / nStars * f * A * L * (L * v * (R ** 2 - 2 * L * R * v + 2 * L ^ 2 * v ^ 2 * (1 - mp.e ** (-R / (L * v))))) - N
 
-    B = 0.004 * ((9.461 * 10 ** (-12)) ** 3) # number density of stars as per Wikipedia
-    function = lambda L: f * A * L * (B * 10**fPlanets * 10**nEnvironment * 4 * math.pi * (L * v * ((v*L/2) ** 2 - 2 * L * (v*L/2) * v + 2 * L ** 2 * v ** 2 * 0.393469)) + 1) - N
-    function1 = lambda L: f * A * (L + 5.13342 * 10**10 * 10** (fPlanets + nEnvironment) * B * L**4) - N
+    B = 0.004 / ((9.461 * 10 ** 12) ** 3)  # number density of stars as per Wikipedia
+    function = lambda L: f * A * L * (B * 10 ** fPlanets * 10 ** nEnvironment * 4 * math.pi * (
+                L * v * ((v * L / 2) ** 2 - 2 * L * (v * L / 2) * v + 2 * L ** 2 * v ** 2 * 0.393469)) + 1) - N
+    function1 = lambda L: f * A * (L + 5.13342 * 10 ** 10 * 10 ** (fPlanets + nEnvironment) * B * L ** 4) - N
     L_initial_guess = 10 ** 2  # to je se za malo probat
     L_solution, info, ier, mes = fsolve(function1, L_initial_guess, full_output=1)  # numerical solver
-    print(np.log10(L_solution[0]))
+    #print(np.log10(L_solution[0]), ' sol ', L_solution, ' info ', info, ' ier ', ier, ' mes ', mes)
+    print(np.log10(L_solution[0]), ' sol ', L_solution, ' ier ', ier, ' f ',f)
 
     return math.log(L_solution[0], 10), mes
 
