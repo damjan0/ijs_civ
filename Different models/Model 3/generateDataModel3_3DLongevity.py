@@ -56,7 +56,7 @@ def getPoint(maxL=10, type_dist="loguniform"):
 
     # for i in range(resitev1):
     A = abs(random.gauss(1, 0.2))
-    v = abs(random.gauss(0.016 * 300000, 2000))
+    v = abs(random.gauss(0.016 * 300000, 10))*365*24*60*60
     # L1 = random.uniform(2, maxL)
     L1 = L
     B = 0.004 * ((9.461 * 10 ** (-12)) ** 3)  # number density of stars as per Wikipedia

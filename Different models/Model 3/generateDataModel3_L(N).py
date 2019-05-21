@@ -48,7 +48,7 @@ def getPoint(maxN=10, type_dist = "loguniform"):
     nStars = 10**random.uniform(11, 11.60205999132)
 
     A = abs(random.gauss(1, 0.2))
-    v = abs(random.gauss(0.016 * 300000, 2000))
+    v = abs(random.gauss(0.016 * 300000, 10))*365*24*60*60
     ############################################################################# TODO
     #R = v * random.uniform(0, L)  # radius of inhabited zone, I assume they have been expanding since the became detectable, which is random
     # ok tle ^ not je dejansko tudi L, nisem tega vidu prej... to je treba se nekako vkljucit
@@ -58,16 +58,17 @@ def getPoint(maxN=10, type_dist = "loguniform"):
     #function = lambda L: 1 / nStars * f * A * L * (L * v * (R ** 2 - 2 * L * R * v + 2 * L ^ 2 * v ^ 2 * (1 - mp.e ** (-R / (L * v))))) - N
 
     B = 0.004 * ((9.461 * 10 ** (-12)) ** 3) # number density of stars as per Wikipedia
-    function = lambda L: f * A * L * (B * 10**fPlanets * 10**nEnvironment * 4 * math.pi * (L * v * ((v*L/2) ** 2 - 2 * L * (v*L/2) * v + 2 * L ** 2 * v ** 2 * (1 - float(mp.e ** (-(v*L/2) / (L * v)))))) + 1) - N
+    function = lambda L: f * A * L * (B * 10**fPlanets * 10**nEnvironment * 4 * math.pi * (L * v * ((v*L/2) ** 2 - 2 * L * (v*L/2) * v + 2 * L ** 2 * v ** 2 * 0.393469)) + 1) - N
+    function1 = lambda L: f * A * (L + 5.13342 * 10**10 * 10** (fPlanets + nEnvironment) * B * L**4) - N
     L_initial_guess = 10 ** 2  # to je se za malo probat
-    L_solution, info, ier, mes = fsolve(function, L_initial_guess, full_output=1)  # numerical solver
+    L_solution, info, ier, mes = fsolve(function1, L_initial_guess, full_output=1)  # numerical solver
 
     return math.log(L_solution[0], 10), mes
 
 
 drawnPoints = 0
 numHorSec = 48
-noIterationsPerMaxN = 2000
+noIterationsPerMaxN = 10000
 logPoints = np.linspace(0, 4, numHorSec)
 allPoints = noIterationsPerMaxN * numHorSec
 
@@ -76,12 +77,12 @@ fixed_n = [1, 10, 100, 1000, 10000]
 for maxN in logPoints:
     # for maxN in fixed_n:
     array = []
-    type_dist = "loguniform"
+    type_dist = "uniform"
     for i in range(0, noIterationsPerMaxN):
         pointAll = getPoint(maxN, type_dist)
         point = pointAll[0]
-        if abs(point-6)<0.5:
-            print(pointAll[1])
+        # if abs(point-6)<0.5:
+        #     print(pointAll[1])
         if type(point) != type(False):
             array.append(point)
 

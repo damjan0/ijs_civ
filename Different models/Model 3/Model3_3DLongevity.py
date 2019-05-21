@@ -13,7 +13,7 @@ def printf(format, *args):
 
 numHorSec = 48
 noBins = 50
-bins = np.linspace(-13,20,noBins+1) #devide N scale
+bins = np.linspace(-2,10,noBins+1) #devide N scale
 horSec = np.linspace(2,10,numHorSec)    #devide Lmax scale
 Z = [None]*numHorSec    #no.hits 2D array - we draw this
 i=0
