@@ -27,7 +27,7 @@ def sample_value(fromv, tov, dist="fixed"):
 
 def getPoint(maxN=10):
 
-    type_dist = "lognormal"
+    type_dist = "uniform"
 
     RStarSample = sample_value(0, 2, type_dist)# loguniform - uniform - halfgauss - lognormal - fixed
 
