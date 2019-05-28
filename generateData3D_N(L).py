@@ -17,7 +17,7 @@ def sample_value(fromv, tov, dist="fixed"):
         return math.log10(np.random.uniform(10 ** fromv, 10 ** tov))
     elif dist == "halfgauss":
         sigmaHalfGauss = (
-                                 10 ** tov - 10 ** fromv) / 3  #/3 je tako da bo 3sigma cez cel interval
+                                 10 ** tov - 10 ** fromv) / 3  # /3 je tako da bo 3sigma cez cel interval
         return np.log10(np.abs(np.random.normal(0, sigmaHalfGauss)) + 10 ** fromv)  # gauss
     elif dist == "lognormal":
         median = (tov - fromv) / 2 + tov  # polovica intervala
@@ -52,12 +52,17 @@ def getPoint(maxL=10):
     resitev = RStarSample + fPlanets + nEnvironment + fLifeEks + fIntelligence + fCivilization + L  # calculates N
 
     # thresholds
-    #rand_tresh = 4
-    #if random.random()<0.5:
+    # rand_tresh = 4
+    # if random.random()<0.5:
     rand_tresh = 3
-    #if (resitev < 0) or E4 < math.log(2, 10) or E3 < math.log(3, 10) or resitev > 4:
+    glajenje = 0.4
+
+    if (resitev < np.random.normal(0, glajenje)) \
+            or E4 < np.random.normal(math.log(2, 10), glajenje) \
+            or E3 < np.random.normal(math.log(3, 10), glajenje) \
+            or resitev > np.random.normal(4, glajenje):
         # return getPoint(maxL)
-    #    return False
+        return False
 
     return resitev
 

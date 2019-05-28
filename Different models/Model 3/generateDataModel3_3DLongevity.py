@@ -58,7 +58,7 @@ def getPoint(maxL=10, type_dist="loguniform"):
     A = 1
     v = abs(random.gauss(0.016 * 300000, 10)) * 365 * 24 * 60 * 60
     # L1 = random.uniform(2, maxL)
-    L1 = 10**L
+    L1 = 10 ** L
     B = 0.004 / ((9.461 * 10 ** (12)) ** 3)  # number density of stars as per Wikipedia
     R = v * random.uniform(0,
                            L1)  # radius of inhabited zone, I assume they have been expanding since the became detectable, which is random
@@ -74,9 +74,10 @@ def getPoint(maxL=10, type_dist="loguniform"):
 
     koncnaResitev1 = math.log10(koncnaResitev0)
 
-    #print('n ',n,' integral ',integral,' resitev1', resitev1,'resitev', resitev,' koncnaResitev0 ',koncnaResitev0,' koncnaResitev1 ',koncnaResitev1)
+    # print('n ',n,' integral ',integral,' resitev1', resitev1,'resitev', resitev,' koncnaResitev0 ',koncnaResitev0,' koncnaResitev1 ',koncnaResitev1)
 
-    if koncnaResitev1 < 0 or koncnaResitev1 > 4:
+    glajenje = 0.4
+    if koncnaResitev1 < np.random.normal(0, glajenje) or koncnaResitev1 > np.random.normal(4, glajenje):
         return False
 
     return koncnaResitev1

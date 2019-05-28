@@ -74,7 +74,8 @@ def getPoint(maxN=10):
     # threshold if N values are very low
     # if (resitev < 0):       #treshold from min possible solution
     # if (resitev < 0) or (resitev > 5):       #threshold min and L possible solution
-    if (resitev < 0) or (resitev > 5):  # bokal?
+    glajenje = 0.4
+    if resitev < np.random.normal(0, glajenje) or resitev > np.random.normal(5, glajenje):  # bokal?
         return False
 
     # x.append(astrophysicsProbability) #from our distribution calculated distribution

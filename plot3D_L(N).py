@@ -15,7 +15,7 @@ Z = [None] * numHorSec
 i = 0
 
 for fileNo in horSec:
-    array = readData("inf" + str(fileNo))
+    array = readData("inf_l_" + str(fileNo))
     Z[i], _ = np.histogram(array, bins)
     # Z[i] = np.multiply(Z[i], 2.0/float(fileNo), out=Z[i], casting="unsafe")    # decay factor is 2/fileNo = 2/maxL
     #print(np.argmax(Z[0]))
