@@ -27,7 +27,10 @@ out = fl.gaussian_filter(nV, 2)
 m = np.where(out == out.max())
 m1 = binsV[m][0]
 
+avg = sum(Z)/len(Z)
+
 print('Največja verjetnost: N = '+ str(10**m1))
+print("Povprečje: N = "+str(10**avg))
 plt.cla()
 plt.plot(binsV[0:-1], out,'red')
 plt.ylabel('frequency')
@@ -36,4 +39,5 @@ plt.xlabel('Log(N)')
 plt.title('Loguniform distribution for L')
 #plt.annotate('max', (m1, 0), annotation_clip=False)
 plt.axvline(m1, color ='r', alpha = 0.5)
+plt.axvline(avg, color='r', alpha=0.7)
 plt.show()

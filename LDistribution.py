@@ -15,7 +15,7 @@ def draw_L(type_dist):
 
     for fileNo in horSec:
 
-        array = readData("inf"+str(fileNo))
+        array = readData("inf_l_"+str(fileNo))
         Z+=array
 
     #out = fl.gaussian_filter(Z, 1)
@@ -27,7 +27,10 @@ def draw_L(type_dist):
     m = np.where(out == out.max())
     m1 = binsV[m][0]
 
+    avg = sum(Z)/len(Z)
+
     print('Največja verjetnost: L = '+ str(10**m1))
+    print("Povprečje: L = "+str(10**avg))
     plt.cla()
     plt.plot(binsV[0:-1], out,'red')
     plt.ylabel('frequency')
@@ -36,6 +39,7 @@ def draw_L(type_dist):
     plt.title('{} distribution for N'.format(type_dist))
     #plt.annotate('max', (m1, 0), annotation_clip=False)
     plt.axvline(m1, color ='r', alpha = 0.5)
+    plt.axvline(avg, color='r', alpha=0.5)
     plt.show()
     
 # distributions = ["loguniform", "uniform", "halfgauss", "lognormal"]

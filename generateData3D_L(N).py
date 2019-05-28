@@ -27,7 +27,7 @@ def sample_value(fromv, tov, dist="fixed"):
 
 def getPoint(maxN=10):
 
-    type_dist = "uniform"
+    type_dist = "loguniform"
 
     RStarSample = sample_value(0, 2, type_dist)# loguniform - uniform - halfgauss - lognormal - fixed
 
@@ -77,8 +77,8 @@ for maxN in logPoints:
         if type(point) != type(False):
             array.append(point)
 
-    saveData(array, "inf" + str(maxN))
-    print("File: inf" + str(maxN) + ".txt created. no of points:" + str(len(array)))
+    saveData(array, "inf_l_" + str(maxN))
+    print("File: inf_l_" + str(maxN) + ".txt created. no of points:" + str(len(array)))
     drawnPoints = drawnPoints + len(array)
     pointFraction = (drawnPoints * 100) / allPoints
 print('done')

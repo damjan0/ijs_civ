@@ -53,23 +53,25 @@ def getPoint(maxL=10, type_dist="loguniform"):
 
     resitev1 = 10 ** resitev  # rounded de-logarithmised solution
 
-    koncnaResitev = 0
-
     # for i in range(resitev1):
     # A = abs(random.gauss(1, 0.2))
     A = 1
     v = abs(random.gauss(0.016 * 300000, 10)) * 365 * 24 * 60 * 60
     # L1 = random.uniform(2, maxL)
-    L1 = L
+    L1 = 10**L
     B = 0.004 / ((9.461 * 10 ** (12)) ** 3)  # number density of stars as per Wikipedia
     R = v * random.uniform(0,
-                           L)  # radius of inhabited zone, I assume they have been expanding since the became detectable, which is random
+                           L1)  # radius of inhabited zone, I assume they have been expanding since the became detectable, which is random
     # integral = integrate.quad(lambda r: r ** 2 * math.exp(-(R - r) / (v * 10 ** L1)), 0, R)
     integral = L1 * v * (R ** 2 - 2 * L1 * R * v + 2 * (1 - math.e ** (-R / (L1 * v))) * L1 ** 2 * v ** 2)
 
     n = B * 10 ** fPlanets * 10 ** nEnvironment * 4 * math.pi * integral
 
     koncnaResitev0 = A * (n + 1) * resitev1
+
+    if koncnaResitev0 < 0:
+        return False
+
     koncnaResitev1 = math.log10(koncnaResitev0)
 
     #print('n ',n,' integral ',integral,' resitev1', resitev1,'resitev', resitev,' koncnaResitev0 ',koncnaResitev0,' koncnaResitev1 ',koncnaResitev1)
