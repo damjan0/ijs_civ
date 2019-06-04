@@ -54,8 +54,8 @@ def getPoint(maxN=10):
     glajenje = 0.4
 
     # thresholds
-    if (L < np.random.normal(0, glajenje)
-            or E4 < np.random.normal(math.log(2, 10), glajenje)
+    # if (L < np.random.normal(0, glajenje)
+    if  (E4 < np.random.normal(math.log(2, 10), glajenje)
             or E3 < np.random.normal(math.log(3, 10), glajenje)
             or L > np.random.normal(10.139879, glajenje)):  # maxL - age of the universe - if we are taking drake equation for this moment
         # return getPoint(maxN)
@@ -67,7 +67,8 @@ def getPoint(maxN=10):
 drawnPoints = 0
 numHorSec = 48
 noIterationsPerMaxN = 30000
-logPoints = np.linspace(0, 4, numHorSec)
+logPoints = np.linspace(-10, 4, numHorSec)
+#logPoints = np.linspace(0, 4, numHorSec)
 allPoints = noIterationsPerMaxN * numHorSec
 
 fixed_n = [1, 10, 100, 1000, 10000]

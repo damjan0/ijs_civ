@@ -13,11 +13,12 @@ Z = []    #no.hits 2D array - we draw this
 horSec = np.linspace(2,10,numHorSec)
 
 for fileNo in horSec:
-    array = readData("/inf"+str(fileNo))
+    if fileNo <=7:
+        array = readData("/inf"+str(fileNo))
     #array = readData("/inf_lognormal_"+str(fileNo))
     #array = readData("/inf_loguni_"+str(fileNo))
     #array = readData("/inf_uni_"+str(fileNo))
-    Z+=array
+        Z+=array
 
 
 nV, binsV, patchesV = plt.hist(Z, 200)

@@ -77,7 +77,14 @@ def getPoint(maxL=10, type_dist="loguniform"):
     # print('n ',n,' integral ',integral,' resitev1', resitev1,'resitev', resitev,' koncnaResitev0 ',koncnaResitev0,' koncnaResitev1 ',koncnaResitev1)
 
     glajenje = 0.4
-    if koncnaResitev1 < np.random.normal(0, glajenje) or koncnaResitev1 > np.random.normal(4, glajenje):
+    nStars = random.uniform(11, 11.60205999132)
+    E3 = nStars + fPlanets + nEnvironment
+    E4 = E3 + fLife
+
+    #if koncnaResitev1 < np.random.normal(0, glajenje) or koncnaResitev1 > np.random.normal(4, glajenje):
+    if E4 < np.random.normal(math.log(2, 10), glajenje) \
+            or E3 < np.random.normal(math.log(3, 10), glajenje) \
+            or koncnaResitev1 > np.random.normal(4, glajenje):
         return False
 
     return koncnaResitev1
