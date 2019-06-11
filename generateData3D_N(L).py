@@ -55,12 +55,12 @@ def getPoint(maxL=10):
     # rand_tresh = 4
     # if random.random()<0.5:
     rand_tresh = 3
-    glajenje = 0.4
+    glajenje = 0.2
 
-    if (resitev < np.random.normal(-6, glajenje)) \
-     or E4 < np.random.normal(math.log(2, 10), glajenje) \
+    if (E4 < np.random.normal(math.log(2, 10), glajenje) \
             or E3 < np.random.normal(math.log(3, 10), glajenje) \
-            or resitev > np.random.normal(4, glajenje):
+            or resitev > np.random.normal(3.5, glajenje)
+            or resitev < np.random.normal(-3, glajenje)):
         # return getPoint(maxL)
         return False
 

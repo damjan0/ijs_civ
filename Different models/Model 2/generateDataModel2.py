@@ -75,7 +75,7 @@ def getPoint(maxL=10):
     # if (resitev < 0):       #treshold from min possible solution
     # if (resitev < 0) or (resitev > 5):       #threshold min and L possible solution
     limit = np.random.normal(3.5, 0.3)
-    if (resitev < 0) or E4 < math.log(2, 10) or E3 < math.log(3, 10) or (resitev > limit):  # bokal?
+    if E4 < math.log(2, 10) or E3 < math.log(3, 10) or (resitev > limit) or (resitev < -6):  # bokal?
         return False
 
     # x.append(astrophysicsProbability) #from our distribution calculated distribution
