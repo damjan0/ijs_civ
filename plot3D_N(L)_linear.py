@@ -7,21 +7,21 @@ from mpl_toolkits.mplot3d import Axes3D
 import scipy.ndimage.filters as fl
 from libraries.StandardizeDistribution import StandardizeDistributionW
 
+i = 0
 numHorSec = 48
 noBins = 100
-bins = np.linspace(0,1,noBins+1) #devide N scale
+bins = np.linspace(0, 10**(4),noBins+1) #devide N scale
 horSec = np.linspace(2, 10, numHorSec)  # devide Lmax scale
 Z = [None] * numHorSec  # no.hits 2D array - we draw this
-i = 0
 
 # go through the files
 for fileNo in horSec:
     array = readData("/inf" + str(fileNo))
     # array = array[0:4664]
-    array = [10**i for i in array]
+    array = [10**i for i in filter(lambda x : 4 > x > i, array)]
     Z[i], _ = np.histogram(array, bins)
     # Z[i] = np.multiply(Z[i], 2.0/float(fileNo), out=Z[i], casting="unsafe")    # decay factor is 2/fileNo = 2/maxL
-    i += 1
+
 
 X, Y = np.meshgrid(bins[0:-1], horSec)
 

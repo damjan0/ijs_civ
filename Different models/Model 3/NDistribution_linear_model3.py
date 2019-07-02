@@ -24,7 +24,8 @@ Z = [10**min(i,4) for i in Z]
 
 nV, binsV, patchesV = plt.hist(Z, 200)
 
-out = fl.gaussian_filter(nV, 2)
+#out = fl.gaussian_filter(nV, 2)
+out = nV
 
 m = np.where(out == out.max())
 m1 = binsV[m][0]

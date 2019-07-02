@@ -59,8 +59,7 @@ def getPoint(maxL=10):
 
     if (E4 < np.random.normal(math.log(2, 10), glajenje) \
             or E3 < np.random.normal(math.log(3, 10), glajenje) \
-            or resitev > np.random.normal(3.5, glajenje)
-            or resitev < np.random.normal(-3, glajenje)):
+            or resitev > np.random.normal(3.5, glajenje)):
         # return getPoint(maxL)
         return False
 
@@ -70,7 +69,7 @@ def getPoint(maxL=10):
 # divide Lmax scale
 drawnPoints = 0
 numHorSec = 48  # on how many parts should we divide L - how many different Lmax should we take
-noIterationsPerMaxL = 30000  # How many points N per each file/maxL - should be as big as possible  ##trenutno 1000, da jih hitreje generira
+noIterationsPerMaxL = 500000  # How many points N per each file/maxL - should be as big as possible  ##trenutno 1000, da jih hitreje generira
 logPoints = np.linspace(2, 10, numHorSec)  # devide on numHorSec equal parts a scale from 2 to 10 -
 allPoints = noIterationsPerMaxL * numHorSec
 

@@ -18,13 +18,23 @@ for fileNo in horSec:
     #array = readData("/inf_lognormal_"+str(fileNo))
     #array = readData("/inf_loguni_"+str(fileNo))
     #array = readData("/inf_uni_"+str(fileNo))
-        Z+=array
+        Z+=filter(lambda x: -8 < x < -6 , array)
+       # Z+= array
 
 Z = [10**i for i in Z]
 
-nV, binsV, patchesV = plt.hist(Z, 200)
+#temp = list(filter(lambda x:  x < 4, Z))
+#temp1 = list(filter(lambda x: x > 0 , temp))
+#print("Probability that we are not alone: " + str(len(temp1)/len(temp)))
 
-out = fl.gaussian_filter(nV, 2)
+# for i in [0, -2, -4, -6, -8]:
+#     temp = list(filter(lambda x: i < x < 4, Z))
+#     temp1 = list(filter(lambda x: x > 0 , temp))
+#     print("Cutting at: " + str(i) + ", probability that we are not alone: " + str(len(temp1)/len(temp)))
+
+out, binsV, patchesV = plt.hist(Z, 1000)
+
+#out = fl.gaussian_filter(nV, 2)
 
 m = np.where(out == out.max())
 m1 = binsV[m][0]
@@ -40,6 +50,6 @@ plt.xlabel('N')
 #plt.legend(loc=1)
 plt.title('Loguniform distribution for L')
 #plt.annotate('max', (m1, 0), annotation_clip=False)
-plt.axvline(m1, color ='r', alpha = 0.5)
-plt.axvline(avg, color='r', alpha=0.7)
+plt.axvline(m1, color ='b', alpha = 0.5)
+plt.axvline(avg, color='g', alpha=0.7)
 plt.show()
