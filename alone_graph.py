@@ -9,13 +9,13 @@ median_brez = [5.41,255.47,2.06]
 median_rezanje = [64.19,261.87,31.12]
 Ln = [66933.04,495.38,65357.38]
 
-plt.ion()
+
 
 labels = ['Model1','Model2','Model3']
 cut = ['no cut', '-8', '-6', '-4', '-2', '0', '2']
 
 x = np.array([0, 1, 2])
-fig = plt.figure()
+#fig = plt.figure()
 # fig.add_subplot()
 
 fig, ax = plt.subplots()
@@ -26,7 +26,8 @@ ax.set_xticks(x)
 #ax.set_xticklabels(('no cut', '-8', '-6', '-4', '-2', '0', '2'))
 ax.set_xticklabels(('Model1','Model2','Model3'))
 
-ax.bar(x, median_brez, color='r')
-ax.bar(x + 0.2, median_rezanje, width=0.2, color='b')
+ax.bar(x, median_brez, width=0.5, color='r')
+ax.bar(x + 0.5, median_rezanje, width=0.5, color='b')
 
-fig.show()
+#fig.show()
+plt.show()

@@ -48,8 +48,8 @@ def getPoint(maxN=10, type_dist="loguniform"):
     E3 = nStars + fPlanets + nEnvironment
     E4 = E3 + fLife
     meje = RStarSample + fPlanets + nEnvironment + fLifeEks + fIntelligence + fCivilization + 10
-    if E4 < 2 or E3 < 3 or meje < 0:
-        return False
+    #if E4 < 2 or E3 < 3 or meje < 0:
+    #   return False
 
     # A = abs(random.gauss(1, 0.2))
     A = 1
@@ -73,15 +73,15 @@ def getPoint(maxN=10, type_dist="loguniform"):
         return False
     #    print(np.log10(L_solution[0]), ' sol ', L_solution, ' ier ', ier, ' f ', f)
     L = math.log(L_solution[0], 10)
-    if (L < 0) or E4 < math.log(2, 10) or E3 < math.log(3, 10) or L > 10.139879:  # maxL - age of the universe
-        return False
+    #if (L < 0) or E4 < math.log(2, 10) or E3 < math.log(3, 10) or L > 10.139879:  # maxL - age of the universe
+    #     return False
 
     return L
 
 
 drawnPoints = 0
 numHorSec = 48
-noIterationsPerMaxN = 10000
+noIterationsPerMaxN = 50000
 logPoints = np.linspace(0, 4, numHorSec)
 allPoints = noIterationsPerMaxN * numHorSec
 
@@ -90,7 +90,7 @@ fixed_n = [1, 10, 100, 1000, 10000]
 for maxN in logPoints:
     # for maxN in fixed_n:
     array = []
-    type_dist = "uniform"
+    type_dist = "loguniform"
     for i in range(0, noIterationsPerMaxN):
         point = getPoint(maxN, type_dist)
         # point = pointAll[0]
@@ -99,7 +99,7 @@ for maxN in logPoints:
         if type(point) != type(False):
             array.append(point)
 
-    saveData(array, "inf" + str(maxN))
+    saveData(array, "infL" + str(maxN))
     print("File: inf" + str(maxN) + ".txt created. no of points:" + str(len(array)))
     drawnPoints = drawnPoints + len(array)
     pointFraction = (drawnPoints * 100) / allPoints

@@ -9,8 +9,8 @@ from libraries.StandardizeDistribution import StandardizeDistributionW
 
 numHorSec = 48
 noBins = 100
-bins = np.linspace(0,100,noBins+1) #devide N scale
-horSec = np.linspace(2, 10, numHorSec)  # devide Lmax scale
+bins = np.linspace(100,1000,noBins+1) #divide N scale
+horSec = np.linspace(2, 10, numHorSec)  # divide Lmax scale
 Z = [None] * numHorSec  # no.hits 2D array - we draw this
 i = 0
 

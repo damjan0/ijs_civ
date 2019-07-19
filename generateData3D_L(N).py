@@ -67,8 +67,8 @@ def getPoint(maxN=10):
 drawnPoints = 0
 numHorSec = 48
 noIterationsPerMaxN = 30000
-logPoints = np.linspace(-10, 4, numHorSec)
-#logPoints = np.linspace(0, 4, numHorSec)
+#logPoints = np.linspace(-10, 4, numHorSec)
+logPoints = np.linspace(0, 4, numHorSec)
 allPoints = noIterationsPerMaxN * numHorSec
 
 fixed_n = [1, 10, 100, 1000, 10000]

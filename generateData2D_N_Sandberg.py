@@ -64,27 +64,30 @@ def getPoint(maxL=10):
         # return getPoint(maxL)
         return False
     '''
-    return resitev
+
+    if resitev < -6:
+        return False
+    return 10 ** resitev
 
 
 # divide Lmax scale
 drawnPoints = 0
 numHorSec = 20  # on how many parts should we divide L - how many different Lmax should we take
-noIterationsPerMaxL = 30000  # How many points N per each file/maxL - should be as big as possible  ##trenutno 1000, da jih hitreje generira
-logPoints = np.linspace(2, 10, numHorSec)  # devide on numHorSec equal parts a scale from 2 to 10 -
-allPoints = noIterationsPerMaxL * numHorSec
+noIterationsPerMaxL = 5000000  # How many points N per each file/maxL - should be as big as possible  ##trenutno 1000, da jih hitreje generira
+# logPoints = np.linspace(2, 10, numHorSec)  # divide on numHorSec equal parts a scale from 2 to 10 -
+# allPoints = noIterationsPerMaxL * numHorSec
 
 # for each Lmax create a file with points
-for maxL in logPoints:
-    array = []
-    for _ in range(0, noIterationsPerMaxL):
-        point = getPoint(maxL)
-        if type(point) != type(False):
-            array.append(point)
+# for maxL in logPoints:
+array = []
+for _ in range(0, noIterationsPerMaxL):
+    point = getPoint()
+    if type(point) != type(False):
+        array.append(point)
 
-    saveData(array, "/inf" + str(maxL))
-    print("File: inf" + str(maxL) + ".txt created. Size: " + str(len(array)))
-    drawnPoints = drawnPoints + len(array)
-    pointFraction = (drawnPoints * 100) / allPoints
+saveData(array, "/N_Sandberg_no_cut")
+# print("File: inf" + str(maxL) + ".txt created. Size: " + str(len(array)))
+# drawnPoints = drawnPoints + len(array)
+# pointFraction = (drawnPoints * 100) / allPoints
 print('done')
-print('Drawn points: ' + str(drawnPoints) + '  Which is: ' + str(pointFraction) + '%')
+# print('Drawn points: ' + str(drawnPoints) + '  Which is: ' + str(pointFraction) + '%')
