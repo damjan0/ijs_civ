@@ -17,6 +17,7 @@ i=0
 # go through the files
 for fileNo in horSec:
     array = readData("/inf" + str(fileNo))
+    array = list(filter(lambda x: 0 <= x < 4, array))
     Z[i], _ = np.histogram(array, bins)
     # Z[i] = np.multiply(Z[i], 2.0/float(fileNo), out=Z[i], casting="unsafe")    # decay factor is 2/fileNo = 2/maxL
     i += 1

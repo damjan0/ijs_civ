@@ -1,7 +1,7 @@
 from libraries.IO import readData
 import numpy as np
 import matplotlib.pyplot as plt
-import scipy.ndimage.filters as fl
+#import scipy.ndimage.filters as fl
 import math
 
 numHorSec = 48
@@ -12,14 +12,20 @@ Z = []    #no.hits 2D array - we draw this
 
 horSec = np.linspace(2,10,numHorSec)
 
-for fileNo in horSec:
-    if fileNo:
-        array = readData("/inf"+str(fileNo))
-    #array = readData("/inf_lognormal_"+str(fileNo))
-    #array = readData("/inf_loguni_"+str(fileNo))
-    #array = readData("/inf_uni_"+str(fileNo))
-        Z+=filter(lambda x: -8 < x < -6 , array)
-       # Z+= array
+# for fileNo in horSec:
+#     if fileNo:
+#         array = readData("/inf"+str(fileNo))
+#     #array = readData("/inf_lognormal_"+str(fileNo))
+#     #array = readData("/inf_loguni_"+str(fileNo))
+#     #array = readData("/inf_uni_"+str(fileNo))
+#         Z+=filter(lambda x: -8 < x < -6 , array)
+#        # Z+= array
+fileNo = 10
+array = readData("/inf"+str(fileNo))
+array1 = list(filter(lambda x:  -6 < x < 4, array))
+Z+=filter(lambda x:  0<=x , array)
+
+print(str(len(Z)/len(array)))
 
 Z = [10**i for i in Z]
 
@@ -37,7 +43,12 @@ out, binsV, patchesV = plt.hist(Z, 1000)
 #out = fl.gaussian_filter(nV, 2)
 
 m = np.where(out == out.max())
-m1 = binsV[m][0]
+print(binsV[m[0]+1])
+m1 = (binsV[m][0]+binsV[m[0]+1][0])/2
+
+median = np.median(Z)
+
+print("Median: " + str(median))
 
 avg = sum(Z)/len(Z)
 

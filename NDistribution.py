@@ -1,8 +1,21 @@
-from libraries.IO import readData
+#from libraries.IO import readData
 import numpy as np
 import matplotlib.pyplot as plt
-import scipy.ndimage.filters as fl
+#import scipy.ndimage.filters as fl
 import math
+
+
+def readData(filename):
+    file = open('data/' + filename + '.txt', 'r')
+    lines = file.readlines()
+    size = len(lines)
+    y = [0] * size
+
+    for i in range(0, size):
+        y[i] = float(lines[i][0:-1])
+
+    file.close()
+    return y
 
 numHorSec = 48
 noBins = 50
@@ -12,33 +25,39 @@ Z = []    #no.hits 2D array - we draw this
 
 horSec = np.linspace(2,10,numHorSec)
 
-for fileNo in horSec:
-    if fileNo <=7:
-        array = readData("/inf"+str(fileNo))
-    #array = readData("/inf_lognormal_"+str(fileNo))
-    #array = readData("/inf_loguni_"+str(fileNo))
-    #array = readData("/inf_uni_"+str(fileNo))
-        Z+=array
+#for fileNo in horSec:
+array = readData("/inf"+str(horSec[-1]))
+#     #array = readData("/inf_lognormal_"+str(fileNo))
+#     #array = readData("/inf_loguni_"+str(fileNo))
+#     #array = readData("/inf_uni_"+str(fileNo))
+array1 = list(filter(lambda x: -6 < x < 4, array))
+Z+=array1
+# fileNo = 10
+# array = readData("/inf"+str(fileNo))
+# Z = array
 
+median = 10**np.median(Z)
+
+print("Median: " + str(median))
 
 nV, binsV, patchesV = plt.hist(Z, 200)
 
-out = fl.gaussian_filter(nV, 2)
+#out = fl.gaussian_filter(nV, 2)
 
-m = np.where(out == out.max())
+m = np.where(nV == nV.max())
 m1 = binsV[m][0]
+Z1 = [10**i for i in Z]
+avg = sum(Z1)/len(Z1)
 
-avg = sum(Z)/len(Z)
-
-print('Največja verjetnost: N = '+ str(10**m1))
-print("Povprečje: N = "+str(10**avg))
+print("Najvecja verjetnost: N = "+ str(10**m1))
+print("Povprecje: N = "+str(avg))
 plt.cla()
-plt.plot(binsV[0:-1], out,'red')
+plt.plot(binsV[0:-1], nV ,'red')
 plt.ylabel('frequency')
 plt.xlabel('Log(N)')
 #plt.legend(loc=1)
-plt.title('Loguniform distribution for L')
+plt.title('Model 1, no cut. Median: {0}, average: {1}'.format(round(median,2), round(avg,2)))
 #plt.annotate('max', (m1, 0), annotation_clip=False)
-plt.axvline(m1, color ='r', alpha = 0.5)
-plt.axvline(avg, color='r', alpha=0.7)
+#plt.axvline(m1, color ='r', alpha = 0.5)
+#plt.axvline(avg, color='r', alpha=0.7)
 plt.show()

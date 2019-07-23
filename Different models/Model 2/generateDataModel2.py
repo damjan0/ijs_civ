@@ -74,7 +74,7 @@ def getPoint(maxL=10):
     # threshold if N values are very low
     # if (resitev < 0):       #treshold from min possible solution
     # if (resitev < 0) or (resitev > 5):       #threshold min and L possible solution
-    limit = np.random.normal(3.5, 0.3)
+    limit = np.random.normal(3.5, 0.2)
     if E4 < math.log(2, 10) or E3 < math.log(3, 10) or (resitev > limit) or (resitev < -6):  # bokal?
         return False
 
@@ -85,7 +85,7 @@ def getPoint(maxL=10):
 
 # devide Lmax scale
 numHorSec = 48  # on how many parts should we devide L - how many different Lmax should we take
-noIterationsPerMaxL = 30000  # How many points N per each file/maxL - should be as big as possible  ##trenutno 1000, da jih hitreje generira
+noIterationsPerMaxL = 50000  # How many points N per each file/maxL - should be as big as possible  ##trenutno 1000, da jih hitreje generira
 logPoints = np.linspace(2, 10, numHorSec)  # devide on numHorSec equal parts a scale from 2 to 10 -
 # x = []
 # y=[]
