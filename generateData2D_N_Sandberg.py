@@ -6,24 +6,9 @@ import matplotlib.pyplot as plt
 import random
 import math
 import time
-#from libraries.IO import saveData
-#from libraries.lifeDist import lifeDist, lifeDist2
+from libraries.IO import saveData
+from libraries.lifeDist import lifeDist, lifeDist2
 
-def saveData(data,filename):
-    file = open('data/'+filename+'.txt', 'w')
-    for i in range(0,len(data)):
-        file.write(str(data[i])+'\n')
-    file.close()
-
-def lifeDist(mean=0, sigma=50):
-    lambdaa = np.random.lognormal(mean, sigma)
-    lambdaa *= (-1)
-    vmesniResult = math.exp(lambdaa)
-    result = 1-vmesniResult
-    if (result==0):         #can't be 0 because we exist and math no work after
-        return lifeDist(mean, sigma)
-    else:
-        return result
 
 def sample_value(fromv, tov, dist="fixed"):
     if dist == "loguniform":
@@ -73,33 +58,36 @@ def getPoint(maxL=10):
     glajenje = 0.2
     '''
     if (E4 < np.random.normal(math.log(2, 10), glajenje) \
-            or E3 < np.random.normal(math.log(3, 10), glajenje)
-            or resitev > np.random.normal(3.5, glajenje)):
+            or E3 < np.random.normal(math.log(3, 10), glajenje) \
+            or resitev > np.random.normal(3.5, glajenje)
+            or resitev < np.random.normal(-3, glajenje)):
         # return getPoint(maxL)
         return False
     '''
-    return resitev
+
+    if resitev < -6:
+        return False
+    return 10 ** resitev
 
 
 # divide Lmax scale
 drawnPoints = 0
-
-numHorSec = 48  # on how many parts should we divide L - how many different Lmax should we take
-noIterationsPerMaxL = 100000  # How many points N per each file/maxL - should be as big as possible  ##trenutno 1000, da jih hitreje generira
-logPoints = np.linspace(2, 10, numHorSec)  # devide on numHorSec equal parts a scale from 2 to 10 -
-allPoints = noIterationsPerMaxL * numHorSec
+numHorSec = 20  # on how many parts should we divide L - how many different Lmax should we take
+noIterationsPerMaxL = 5000000  # How many points N per each file/maxL - should be as big as possible  ##trenutno 1000, da jih hitreje generira
+# logPoints = np.linspace(2, 10, numHorSec)  # divide on numHorSec equal parts a scale from 2 to 10 -
+# allPoints = noIterationsPerMaxL * numHorSec
 
 # for each Lmax create a file with points
-for maxL in logPoints:
-    array = []
-    for _ in range(0, noIterationsPerMaxL):
-        point = getPoint(maxL)
-        if type(point) != type(False):
-            array.append(point)
+# for maxL in logPoints:
+array = []
+for _ in range(0, noIterationsPerMaxL):
+    point = getPoint()
+    if type(point) != type(False):
+        array.append(point)
 
-    saveData(array, "/inf" + str(maxL))
-    print("File: inf" + str(maxL) + ".txt created. Size: " + str(len(array)))
-drawnPoints = drawnPoints + len(array)
-pointFraction = (drawnPoints * 100) / allPoints
+saveData(array, "/N_Sandberg_no_cut")
+# print("File: inf" + str(maxL) + ".txt created. Size: " + str(len(array)))
+# drawnPoints = drawnPoints + len(array)
+# pointFraction = (drawnPoints * 100) / allPoints
 print('done')
-print('Drawn points: ' + str(drawnPoints) + '  Which is: ' + str(pointFraction) + '%')
+# print('Drawn points: ' + str(drawnPoints) + '  Which is: ' + str(pointFraction) + '%')

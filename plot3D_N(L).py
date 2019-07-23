@@ -7,9 +7,11 @@ from mpl_toolkits.mplot3d import Axes3D
 #import scipy.ndimage.filters as fl
 #from libraries.StandardizeDistribution import StandardizeDistributionW
 
-numHorSec = 48
+numHorSec = 20
 noBins = 50
+
 bins = np.linspace(-2,5,noBins+1) #devide N scale
+
 horSec = np.linspace(2, 10, numHorSec)  # devide Lmax scale
 Z = [None] * numHorSec  # no.hits 2D array - we draw this
 i = 0
@@ -40,7 +42,7 @@ print("Saved no. of hits")
 # Plot the surface
 ax.plot_surface(X, Y, Z, cmap=cm.coolwarm, shade=True, color='b', alpha=0.8)
 
-ax.set_xlabel("log(N)")
+ax.set_xlabel("N")
 ax.set_ylabel("log(maxL)")
 ax.set_zlabel("no. hits")
 plt.show()

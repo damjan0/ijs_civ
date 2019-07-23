@@ -39,7 +39,7 @@ def getPoint(maxL=10, type_dist="loguniform"):
 
     fCivilization = sample_value(-2, 0, type_dist)  # loguniform - uniform - halfgauss - lognormal - fixed
 
-    L = sample_value(0, maxL, type_dist)  # loguniform - uniform - halfgauss - lognormal - fixed
+    L = sample_value(2, maxL, type_dist)  # loguniform - uniform - halfgauss - lognormal - fixed
 
     fLife = lifeDist(mean=0, sigma=50)
     fLifeEks = float(mp.log(fLife, 10))
@@ -82,10 +82,14 @@ def getPoint(maxL=10, type_dist="loguniform"):
     E4 = E3 + fLife
 
     #if koncnaResitev1 < np.random.normal(0, glajenje) or koncnaResitev1 > np.random.normal(4, glajenje):
+    '''
     if E4 < np.random.normal(math.log(2, 10), glajenje) \
             or E3 < np.random.normal(math.log(3, 10), glajenje) \
             or koncnaResitev1 < -6:
             #or koncnaResitev1 > np.random.normal(3.5, glajenje)\
+        return False
+    '''
+    if koncnaResitev1 < -6 or koncnaResitev1 > np.random.normal(3.5, glajenje):
         return False
 
     return koncnaResitev1
@@ -94,6 +98,8 @@ def getPoint(maxL=10, type_dist="loguniform"):
 # devide Lmax scale
 numHorSec = 48  # on how many parts should we devide L - how many different Lmax should we take
 noIterationsPerMaxL = 50000  # How many points N per each file/maxL - should be as big as possible  ##trenutno 1000, da jih hitreje generira
+
+
 logPoints = np.linspace(2, 10, numHorSec)  # divide on numHorSec equal parts a scale from 2 to 10 -
 
 # for each Lmax create a file with points
