@@ -12,6 +12,7 @@ def draw_L(type_dist):
     Z = []    #no.hits 2D array - we draw this
 
     horSec = np.linspace(0, 4, numHorSec)
+    glajenje = 0.2
     '''
     for fileNo in horSec:
 
@@ -19,6 +20,7 @@ def draw_L(type_dist):
         Z+=array
     '''
     Z = readData("infL"+str(horSec[-1]))
+    Z = list(filter(lambda x: x <= np.random.normal(9.5, glajenje), Z))
     #out = fl.gaussian_filter(Z, 1)
 
     nV, binsV, patchesV = plt.hist(Z, 200)
@@ -39,7 +41,7 @@ def draw_L(type_dist):
     plt.ylabel('frequency')
     plt.xlabel('Log(L)')
     #plt.legend(loc=1)
-    plt.title('Model 3 L(N), median: '+str(np.round(mediana,2))+" avg: "+str(np.round(avg,2)))
+    plt.title('Model 3 L(N), last slice, median: '+str(np.round(mediana,2))+" avg: "+str(np.round(avg,2)))
     #plt.annotate('max', (m1, 0), annotation_clip=False)
     #plt.axvline(m1, color ='r', alpha = 0.5)
     #plt.axvline(avg, color='r', alpha=0.5)

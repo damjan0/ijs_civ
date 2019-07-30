@@ -70,7 +70,7 @@ def getPoint(maxL=10, type_dist="loguniform"):
     koncnaResitev0 = A * (n + 1) * resitev1
 
     if koncnaResitev0 < 0:
-        return False
+        return False, False
 
     koncnaResitev1 = math.log10(koncnaResitev0)
 
@@ -82,17 +82,19 @@ def getPoint(maxL=10, type_dist="loguniform"):
     E4 = E3 + fLife
 
     #if koncnaResitev1 < np.random.normal(0, glajenje) or koncnaResitev1 > np.random.normal(4, glajenje):
-    '''
+
     if E4 < np.random.normal(math.log(2, 10), glajenje) \
             or E3 < np.random.normal(math.log(3, 10), glajenje) \
-            or koncnaResitev1 < -6:
-            #or koncnaResitev1 > np.random.normal(3.5, glajenje)\
-        return False
-    '''
-    if koncnaResitev1 < -6 or koncnaResitev1 > np.random.normal(3.5, glajenje):
-        return False
+            or koncnaResitev1 < -6 :
+            #or koncnaResitev1 > np.random.normal(3.5, glajenje):
+        return False, False
 
-    return koncnaResitev1
+    # if koncnaResitev1 < -6 or koncnaResitev1 > np.random.normal(3.5, glajenje):
+    #     return False
+    if koncnaResitev1 > nStars:
+        return False, False
+
+    return koncnaResitev1, koncnaResitev0/resitev1
 
 
 # devide Lmax scale
@@ -105,13 +107,16 @@ logPoints = np.linspace(2, 10, numHorSec)  # divide on numHorSec equal parts a s
 # for each Lmax create a file with points
 for maxL in logPoints:
     array = []
+    array1 = []
     type_dist = "loguniform"
     for _ in range(0, noIterationsPerMaxL):
-        point = getPoint(maxL, type_dist)
+        point, nrsettlements = getPoint(maxL, type_dist)
         if type(point) != type(False):
             array.append(point)
+            array1.append(nrsettlements)
 
     saveData(array, "/inf_" + type_dist + "_" + str(maxL))
+    saveData(array1, "/inf_" + type_dist + "_settlements_" + str(maxL))
     print("File: inf_" + type_dist + "_" + str(maxL) + ".txt created")
 
 print('done')
