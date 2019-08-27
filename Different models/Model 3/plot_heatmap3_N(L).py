@@ -11,13 +11,13 @@ from scipy.ndimage import gaussian_filter
 numHorSec = 48
 # numHorSec = 5
 noBins = 60
-bins = np.linspace(-3, 8, noBins + 1)
+bins = np.linspace(-3, 11, noBins + 1)
 horSec = np.linspace(2, 10, numHorSec)
 Z = [None] * numHorSec
 i = 0
 
 for fileNo in horSec:
-    array = readData("inf" + str(fileNo))
+    array = readData("inf_loguniform_" + str(fileNo))
     #array = list(filter(lambda x: 0 <= x, array))
     Z[i], _ = np.histogram(array, bins)
     print(str(int(10 ** fileNo)) + " - " + str(bins[np.argmax(Z[i])]))

@@ -34,8 +34,6 @@ X = np.array(X)
 Y = np.array(Y)
 Z = np.array(Z)
 
-# PRINT Z aka no_hits table used for other programs
-np.savetxt('no_hits.txt', Z, fmt='%.0f')
 # saveData(Z, "no_hits")   old
 print("Saved no. of hits")
 

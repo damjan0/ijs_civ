@@ -13,8 +13,8 @@ def printf(format, *args):
 
 numHorSec = 48
 noBins = 50
-bins = np.linspace(0,2,noBins+1) #devide N scale
-horSec = np.linspace(2,10,numHorSec)    #devide Lmax scale
+bins = np.linspace(-6,30,noBins+1) #divide N scale
+horSec = np.linspace(2,10,numHorSec)    #divide Lmax scale
 Z = [None]*numHorSec    #no.hits 2D array - we draw this
 i=0
 
@@ -23,12 +23,12 @@ for fileNo in horSec:
     try:
         type_dist = "loguniform"
         array = readData("/inf_"+ type_dist + "_" +str(fileNo))
-        array = [np.log10(i) for i in array]
-        array = list(filter(lambda x : x <=4, array))
+        #array = [np.log10(i) for i in array]
+        #array = list(filter(lambda x : x <=4, array))
     except FileNotFoundError: array = 0
     Z[i],_ = np.histogram(array, bins)
     #Z[i] = np.multiply(Z[i], 2.0/float(fileNo), out=Z[i], casting="unsafe")    # decay factor is 2/fileNo = 2/maxL
-    printf("L %.2f - N %.2f\n",fileNo,np.log10(np.average(array)))
+    printf("L %.2f - N %.2f\n",fileNo,10**np.median(array))
     i+=1
 
 X, Y = np.meshgrid(bins[0:-1],horSec)
