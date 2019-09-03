@@ -38,8 +38,10 @@ def getPoint(maxN=10):
 
     fCivilization = sample_value(-2, 0, type_dist)  # loguniform - uniform - halfgauss - lognormal - fixed
 
-    N = sample_value(0, maxN, type_dist)  # loguniform - uniform - halfgauss - lognormal - fixed
+    # N = sample_value(0, maxN, type_dist)  # loguniform - uniform - halfgauss - lognormal - fixed
 
+    N = np.log10(maxN)
+    #N = maxN
     fLife = lifeDist(mean=0, sigma=50)
     fLifeEks = float(mp.log(fLife, 10))
 
@@ -55,27 +57,29 @@ def getPoint(maxN=10):
 
     # thresholds
     # if (L < np.random.normal(0, glajenje)
-
-    if  (E4 < np.random.normal(math.log(2, 10), glajenje)
+    '''
+    if (E4 < np.random.normal(math.log(2, 10), glajenje)
             or E3 < np.random.normal(math.log(3, 10), glajenje)
-            or L > np.random.normal(10.139879, glajenje)):  # maxL - age of the universe - if we are taking drake equation for this moment
+            or L > np.random.normal(10.139879,
+                                    glajenje)):  # maxL - age of the universe - if we are taking drake equation for this moment
         # return getPoint(maxN)
         return False
-
+    '''
     return L
 
 
 drawnPoints = 0
 numHorSec = 48
-noIterationsPerMaxN = 1000
-#logPoints = np.linspace(-10, 4, numHorSec)
+noIterationsPerMaxN = 10000000
+# logPoints = np.linspace(-10, 4, numHorSec)
 logPoints = np.linspace(0, 4, numHorSec)
 allPoints = noIterationsPerMaxN * numHorSec
 
 fixed_n = [1, 10, 100, 1000, 10000]
+#fixed_n = np.linspace(1, 5, 30)
 
-for maxN in logPoints:
-    # for maxN in fixed_n:
+#for maxN in logPoints:
+for maxN in fixed_n:
     array = []
     for _ in range(0, noIterationsPerMaxN):
         point = getPoint(maxN)

@@ -10,6 +10,7 @@ numHorSec = 48
 #numHorSec = 5
 noBins = 60
 bins = np.linspace(-2, 13, noBins + 1)
+bins = np.linspace(0,10**13,noBins+1)
 horSec = np.linspace(0, 4, numHorSec)
 Z = [None] * numHorSec
 i = 0
@@ -23,6 +24,7 @@ for fileNo in horSec:
     print(str(int(10 ** fileNo)) + " - " + str(bins[np.argmax(Z[i])]))
     i += 1
 
+Z=10**Z
 X, Y = np.meshgrid(bins[0:-1], horSec)
 
 fig = plt.figure()
